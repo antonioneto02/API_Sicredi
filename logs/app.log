@@ -1,0 +1,101 @@
+2026-03-19 09:56:18 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-19 09:56:40 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-19 09:56:40 [ERROR] Falha ao autenticar no Sicredi: "Access denied for this environment."
+2026-03-19 09:56:40 [WARN] HTTP 502 → Autenticação Sicredi falhou: "Access denied for this environment."
+2026-03-19 09:58:28 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-19 09:58:31 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-19 09:58:31 [ERROR] Falha ao autenticar no Sicredi: Invalid URL
+2026-03-19 09:58:31 [WARN] HTTP 502 → Autenticação Sicredi falhou: Invalid URL
+2026-03-19 09:59:24 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-19 09:59:27 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-19 09:59:27 [INFO] Token Sicredi obtido com sucesso.
+2026-03-19 09:59:27 [INFO] Gerando boleto HÍBRIDO | NF=000123 | Valor=1500
+2026-03-19 09:59:27 [INFO] Sicredi → HTTP 201
+2026-03-19 09:59:28 [INFO] PDF do boleto gerado com sucesso.
+2026-03-19 09:59:28 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-19 09:59:28 [INFO] === Cobrança gerada | NF=000123 | Tipo=HIBRIDO | nossoNumero=211001292 ===
+2026-03-23 17:41:49 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 17:45:32 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-23 17:45:33 [ERROR] Falha ao autenticar no Sicredi: "Access denied for this environment."
+2026-03-23 17:45:33 [WARN] HTTP 502 → Autenticação Sicredi falhou: "Access denied for this environment."
+2026-03-23 17:48:02 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 17:48:06 [INFO] === Iniciando geração de cobrança | NF=000456 | Filial=010101 | frmpag=R$ ===
+2026-03-23 17:48:06 [ERROR] Falha ao autenticar no Sicredi: "Access denied for this environment."
+2026-03-23 17:48:06 [WARN] HTTP 502 → Autenticação Sicredi falhou: "Access denied for this environment."
+2026-03-23 17:54:20 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 17:54:50 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-23 17:54:50 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 17:54:50 [INFO] Gerando boleto HÍBRIDO | NF=000123 | Valor=1500
+2026-03-23 17:54:50 [ERROR] Sicredi → HTTP 422 | {"timestamp":"2026-03-23T20:54:50.987+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":"Negócio: Documento do Beneficiário não pode ser o mesmo do Pagador."}
+2026-03-23 17:54:50 [WARN] HTTP 502 → Sicredi retornou erro: HTTP 422 — {"timestamp":"2026-03-23T20:54:50.987+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":"Negócio: Documento do Beneficiário não pode ser o mesmo do Pagador."}
+2026-03-23 17:55:39 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-23 17:55:39 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 17:55:39 [INFO] Gerando boleto HÍBRIDO | NF=000123 | Valor=1500
+2026-03-23 17:55:39 [ERROR] Sicredi → HTTP 422 | {"timestamp":"2026-03-23T20:55:40.012+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":"Negócio: Em pagador, para o PESSOA_JURIDICA o documento deve possuir 14 digitos."}
+2026-03-23 17:55:39 [WARN] HTTP 502 → Sicredi retornou erro: HTTP 422 — {"timestamp":"2026-03-23T20:55:40.012+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":"Negócio: Em pagador, para o PESSOA_JURIDICA o documento deve possuir 14 digitos."}
+2026-03-23 17:56:03 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-23 17:56:04 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 17:56:04 [INFO] Gerando boleto HÍBRIDO | NF=000123 | Valor=1500
+2026-03-23 17:56:04 [INFO] Sicredi → HTTP 201
+2026-03-23 17:56:04 [ERROR] Erro ao gerar PDF → HTTP 422 | {"type":"Buffer","data":[123,34,116,105,109,101,115,116,97,109,112,34,58,34,50,48,50,54,45,48,51,45,50,51,84,50,48,58,53,54,58,48,52,46,53,53,57,43,48,48,58,48,48,34,44,34,101,114,114,111,114,34,58,34,85,78,80,82,79,67,69,83,83,65,66,76,69,95,69,78,84,73,84,89,34,44,34,99,111,100,101,34,58,34,52,50,50,34,44,34,109,101,115,115,97,103,101,34,58,34,32,66,111,108,101,116,111,32,110,195,163,111,32,108,111,99,97,108,105,122,97,100,111,46,32,86,101,114,105,102,105,113,117,101,32,111,115,32,100,97,100,111,115,32,105,110,102,111,114,109,97,100,111,115,32,111,117,32,101,110,116,114,101,32,101,109,32,99,111,110,116,97,116,111,32,99,111,109,32,111,32,66,101,110,101,102,105,99,105,195,161,114,105,111,46,34,125]}
+2026-03-23 17:56:04 [ERROR] Falha ao gerar PDF: Erro ao gerar PDF: HTTP 422
+2026-03-23 17:56:04 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-23 17:56:04 [INFO] === Cobrança gerada | NF=000123 | Tipo=HIBRIDO | nossoNumero=600000006 ===
+2026-03-23 17:56:51 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 17:56:55 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-23 17:56:56 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 17:56:56 [INFO] Gerando boleto HÍBRIDO | NF=000123 | Valor=1500
+2026-03-23 17:56:56 [INFO] Sicredi → HTTP 201
+2026-03-23 17:56:56 [ERROR] Erro ao gerar PDF → HTTP 422 | {"type":"Buffer","data":[123,34,116,105,109,101,115,116,97,109,112,34,58,34,50,48,50,54,45,48,51,45,50,51,84,50,48,58,53,54,58,53,54,46,57,54,52,43,48,48,58,48,48,34,44,34,101,114,114,111,114,34,58,34,85,78,80,82,79,67,69,83,83,65,66,76,69,95,69,78,84,73,84,89,34,44,34,99,111,100,101,34,58,34,52,50,50,34,44,34,109,101,115,115,97,103,101,34,58,34,32,66,111,108,101,116,111,32,110,195,163,111,32,108,111,99,97,108,105,122,97,100,111,46,32,86,101,114,105,102,105,113,117,101,32,111,115,32,100,97,100,111,115,32,105,110,102,111,114,109,97,100,111,115,32,111,117,32,101,110,116,114,101,32,101,109,32,99,111,110,116,97,116,111,32,99,111,109,32,111,32,66,101,110,101,102,105,99,105,195,161,114,105,111,46,34,125]}
+2026-03-23 17:56:56 [ERROR] Falha ao gerar PDF: Erro ao gerar PDF: HTTP 422
+2026-03-23 17:56:56 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-23 17:56:56 [INFO] === Cobrança gerada | NF=000123 | Tipo=HIBRIDO | nossoNumero=600000014 ===
+2026-03-23 18:01:25 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 18:01:32 [INFO] === Iniciando geração de cobrança | NF=000456 | Filial=010101 | frmpag=R$ ===
+2026-03-23 18:01:32 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 18:01:32 [INFO] Gerando PIX SIMPLES | NF=000456 | Valor=350.5
+2026-03-23 18:01:33 [INFO] Sicredi → HTTP 201
+2026-03-23 18:01:33 [INFO] Resposta Sicredi pix: {"txid":"fcaef786e08641eaa34dc23469cf536d","qrCode":"00020126910014br.gov.bcb.pix2569pix-qrcode.sicredi.com.br/qr/v2/cobv/4864f3c44ff243d3963d4d9b032582695204000053039865802BR5903PIX6006Cidade62070503***630477D2","linhaDigitavel":"74891160090000220730651462011050514320000035050","codigoBarras":"74895143200000350501160000002207305146201105","cooperativa":"0730","posto":"51","nossoNumero":"600000022"}
+2026-03-23 18:01:33 [ERROR] Erro ao gerar PDF → HTTP 422 | URL: https://api-parceiro.sicredi.com.br/cobranca/boleto/v1/boletos/pdf?linhaDigitavel=74891160090000220730651462011050514320000035050 | {"type":"Buffer","data":[123,34,116,105,109,101,115,116,97,109,112,34,58,34,50,48,50,54,45,48,51,45,50,51,84,50,49,58,48,49,58,51,51,46,52,55,56,43,48,48,58,48,48,34,44,34,101,114,114,111,114,34,58,34,85,78,80,82,79,67,69,83,83,65,66,76,69,95,69,78,84,73,84,89,34,44,34,99,111,100,101,34,58,34,52,50,50,34,44,34,109,101,115,115,97,103,101,34,58,34,32,66,111,108,101,116,111,32,110,195,163,111,32,108,111,99,97,108,105,122,97,100,111,46,32,86,101,114,105,102,105,113,117,101,32,111,115,32,100,97,100,111,115,32,105,110,102,111,114,109,97,100,111,115,32,111,117,32,101,110,116,114,101,32,101,109,32,99,111,110,116,97,116,111,32,99,111,109,32,111,32,66,101,110,101,102,105,99,105,195,161,114,105,111,46,34,125]}
+2026-03-23 18:01:33 [ERROR] Falha ao gerar PDF: Erro ao gerar PDF: HTTP 422 | {"type":"Buffer","data":[123,34,116,105,109,101,115,116,97,109,112,34,58,34,50,48,50,54,45,48,51,45,50,51,84,50,49,58,48,49,58,51,51,46,52,55,56,43,48,48,58,48,48,34,44,34,101,114,114,111,114,34,58,34,85,78,80,82,79,67,69,83,83,65,66,76,69,95,69,78,84,73,84,89,34,44,34,99,111,100,101,34,58,34,52,50,50,34,44,34,109,101,115,115,97,103,101,34,58,34,32,66,111,108,101,116,111,32,110,195,163,111,32,108,111,99,97,108,105,122,97,100,111,46,32,86,101,114,105,102,105,113,117,101,32,111,115,32,100,97,100,111,115,32,105,110,102,111,114,109,97,100,111,115,32,111,117,32,101,110,116,114,101,32,101,109,32,99,111,110,116,97,116,111,32,99,111,109,32,111,32,66,101,110,101,102,105,99,105,195,161,114,105,111,46,34,125]}
+2026-03-23 18:01:33 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-23 18:01:33 [INFO] === Cobrança gerada | NF=000456 | Tipo=PIX_SIMPLES | nossoNumero=600000022 ===
+2026-03-23 18:05:08 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 18:05:13 [INFO] === Iniciando geração de cobrança | NF=000456 | Filial=010101 | frmpag=R$ ===
+2026-03-23 18:05:14 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 18:05:14 [INFO] Gerando PIX SIMPLES | NF=000456 | Valor=350.5
+2026-03-23 18:05:14 [INFO] Sicredi → HTTP 201
+2026-03-23 18:05:14 [INFO] Resposta Sicredi pix: {"txid":"e2638ab2c69c443ab6d941f028855af6","qrCode":"00020126910014br.gov.bcb.pix2569pix-qrcode.sicredi.com.br/qr/v2/cobv/265d51b7076b4f9b9d53d9b1187b81ed5204000053039865802BR5903PIX6006Cidade62070503***6304915C","linhaDigitavel":"74891160090000300730951462011001114320000035050","codigoBarras":"74891143200000350501160000003007305146201100","cooperativa":"0730","posto":"51","nossoNumero":"600000030"}
+2026-03-23 18:05:14 [ERROR] Erro ao gerar PDF → HTTP 400 | URL: https://api-parceiro.sicredi.com.br/cobranca/boleto/v1/boletos/pdf?nossoNumero=600000030 | {"timestamp":"2026-03-23T21:05:14.657+00:00","error":"BAD_REQUEST","code":"400","message":"A linha digitavel deve ter 47 dígitos."}
+2026-03-23 18:05:14 [ERROR] Falha ao gerar PDF: Erro ao gerar PDF: HTTP 400 | {"timestamp":"2026-03-23T21:05:14.657+00:00","error":"BAD_REQUEST","code":"400","message":"A linha digitavel deve ter 47 dígitos."}
+2026-03-23 18:05:14 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-23 18:05:14 [INFO] === Cobrança gerada | NF=000456 | Tipo=PIX_SIMPLES | nossoNumero=600000030 ===
+2026-03-23 18:06:30 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 18:06:43 [INFO] === Iniciando geração de cobrança | NF=000456 | Filial=010101 | frmpag=R$ ===
+2026-03-23 18:06:43 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 18:06:43 [INFO] Gerando PIX SIMPLES | NF=000456 | Valor=350.5
+2026-03-23 18:06:44 [INFO] Sicredi → HTTP 201
+2026-03-23 18:06:44 [INFO] Resposta Sicredi pix: {"txid":"dc9636f0754a4ce3b05b60791bb41320","qrCode":"00020126910014br.gov.bcb.pix2569pix-qrcode.sicredi.com.br/qr/v2/cobv/486b727e633c44a5979f63f4c6a7756c5204000053039865802BR5903PIX6006Cidade62070503***6304D26D","linhaDigitavel":"74891160090000490730951462011068614320000035050","codigoBarras":"74896143200000350501160000004907305146201106","cooperativa":"0730","posto":"51","nossoNumero":"600000049"}
+2026-03-23 18:06:46 [ERROR] Erro ao gerar PDF → HTTP 422 | URL: https://api-parceiro.sicredi.com.br/cobranca/boleto/v1/boletos/pdf?linhaDigitavel=74891160090000490730951462011068614320000035050 | {"timestamp":"2026-03-23T21:06:46.479+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Boleto não localizado. Verifique os dados informados ou entre em contato com o Beneficiário."}
+2026-03-23 18:06:46 [ERROR] Falha ao gerar PDF: Erro ao gerar PDF: HTTP 422 | {"timestamp":"2026-03-23T21:06:46.479+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Boleto não localizado. Verifique os dados informados ou entre em contato com o Beneficiário."}
+2026-03-23 18:06:46 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-23 18:06:46 [INFO] === Cobrança gerada | NF=000456 | Tipo=PIX_SIMPLES | nossoNumero=600000049 ===
+2026-03-23 18:07:47 [INFO] Sicredi API rodando em http://localhost:3000
+2026-03-23 18:07:52 [INFO] === Iniciando geração de cobrança | NF=000456 | Filial=010101 | frmpag=R$ ===
+2026-03-23 18:07:52 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 18:07:52 [INFO] Gerando PIX SIMPLES | NF=000456 | Valor=350.5
+2026-03-23 18:07:52 [INFO] Sicredi → HTTP 201
+2026-03-23 18:07:52 [INFO] Resposta Sicredi pix: {"txid":"8707e368d178477f961f243c29648290","qrCode":"00020126910014br.gov.bcb.pix2569pix-qrcode.sicredi.com.br/qr/v2/cobv/d8bd305c0d84442ca3bb11fd9aa4e8925204000053039865802BR5903PIX6006Cidade62070503***63044F3D","linhaDigitavel":"74891160090000570730251462011019114320000035050","codigoBarras":"74891143200000350501160000005707305146201101","cooperativa":"0730","posto":"51","nossoNumero":"600000057"}
+2026-03-23 18:07:56 [INFO] PDF do boleto gerado com sucesso.
+2026-03-23 18:07:56 [INFO] FICHA DE COMPENSAÇÃO coberta no PDF PIX.
+2026-03-23 18:07:56 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-23 18:07:56 [INFO] === Cobrança gerada | NF=000456 | Tipo=PIX_SIMPLES | nossoNumero=600000057 ===
+2026-03-23 18:09:42 [INFO] === Iniciando geração de cobrança | NF=000123 | Filial=010101 | frmpag=BOL ===
+2026-03-23 18:09:43 [INFO] Token Sicredi obtido com sucesso.
+2026-03-23 18:09:43 [INFO] Gerando boleto HÍBRIDO | NF=000123 | Valor=1500
+2026-03-23 18:09:43 [INFO] Sicredi → HTTP 201
+2026-03-23 18:09:43 [INFO] Resposta Sicredi boleto: {"txid":"f5901556185645ba89f4ba5d222ae848","qrCode":"00020126910014br.gov.bcb.pix2569pix-qrcode.sicredi.com.br/qr/v2/cobv/2ff9932b4e5a45c9871a1c3afd7464685204000053039865802BR5903PIX6006Cidade62070503***63048C3D","linhaDigitavel":"74891160090000650730551462011076214320000150000","codigoBarras":"74892143200001500001160000006507305146201107","cooperativa":"0730","posto":"51","nossoNumero":"600000065"}
+2026-03-23 18:09:46 [INFO] PDF do boleto gerado com sucesso.
+2026-03-23 18:09:46 [WARN] WEBHOOK_URL não configurado — notificação ignorada.
+2026-03-23 18:09:46 [INFO] === Cobrança gerada | NF=000123 | Tipo=HIBRIDO | nossoNumero=600000065 ===
+2026-03-24 10:10:38 [INFO] Sicredi API rodando em http://localhost:3000
