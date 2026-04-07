@@ -1,5 +1,9 @@
 const axios = require('axios');
 const { PDFDocument, rgb } = require('pdf-lib');
+const poppler = require('pdf-poppler');
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
 const logger = require('../logger');
 const {
   SICREDI_BASE_URL,
@@ -141,7 +145,6 @@ async function gerarPdf(linhaDigitavel, token) {
   }
 }
 
-// Para R$: cobre a FICHA DE COMPENSAÇÃO (barcode + linha digitável) com branco
 async function cobrirFichaBoleto(pdfBase64) {
   try {
     const pdfBytes = Buffer.from(pdfBase64, 'base64');
@@ -162,4 +165,44 @@ async function cobrirFichaBoleto(pdfBase64) {
   }
 }
 
-module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, cobrirFichaBoleto };
+async function pdfParaPng(pdfBase64) {
+  const tmpDir = os.tmpdir();
+  const pdfPath = path.join(tmpDir, `boleto_${Date.now()}.pdf`);
+  const outPrefix = path.join(tmpDir, `boleto_${Date.now()}`);
+
+  try {
+    fs.writeFileSync(pdfPath, Buffer.from(pdfBase64, 'base64'));
+
+    await poppler.convert(pdfPath, {
+      format: 'png',
+      out_dir: tmpDir,
+      out_prefix: path.basename(outPrefix),
+      scale: 1500,
+    });
+
+    const arquivos = fs.readdirSync(tmpDir)
+      .filter(f => f.startsWith(path.basename(outPrefix)) && f.endsWith('.png'))
+      .sort();
+
+    if (arquivos.length === 0) {
+      throw new Error('Nenhuma imagem PNG gerada pelo poppler');
+    }
+
+    const pngPath = path.join(tmpDir, arquivos[0]);
+    const imgBase64 = fs.readFileSync(pngPath).toString('base64');
+    
+    try { fs.unlinkSync(pdfPath); } catch (_) {}
+    for (const arq of arquivos) {
+      try { fs.unlinkSync(path.join(tmpDir, arq)); } catch (_) {}
+    }
+
+    logger.info(`PDF convertido para PNG com sucesso (${arquivos.length} página(s))`);
+    return imgBase64;
+  } catch (err) {
+    try { fs.unlinkSync(pdfPath); } catch (_) {}
+    logger.error(`Erro ao converter PDF para PNG: ${err.message}`);
+    throw err;
+  }
+}
+
+module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, cobrirFichaBoleto, pdfParaPng };

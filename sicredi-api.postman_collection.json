@@ -1,70 +1,57 @@
 {
   "info": {
-    "name": "Sicredi Bolecode API",
+    "name": "Intermediação Cini Sicredi",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
       "key": "base_url",
-      "value": "http://localhost:3000"
+      "value": "http://localhost:3012",
+      "type": "string"
     }
   ],
   "item": [
     {
-      "name": "Health Check",
-      "request": {
-        "method": "GET",
-        "url": "{{base_url}}/health"
-      }
-    },
-    {
-      "name": "Bolecode - BOL (Híbrido: linha digitável + código de barras + QR PIX)",
+      "name": "Boleto",
       "request": {
         "method": "POST",
-        "url": "{{base_url}}/bolecode",
         "header": [
           {
             "key": "Content-Type",
             "value": "application/json"
           }
         ],
+        "url": {
+          "raw": "{{base_url}}/bolecode",
+          "host": ["{{base_url}}"],
+          "path": ["bolecode"]
+        },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nf\":        \"000123\",\n  \"filial\":    \"010101\",\n  \"prefixo\":   \"NF\",\n  \"parcela\":   \"001\",\n  \"frmpag\":    \"BOL\",\n  \"valor\":     1500.00,\n  \"vencto\":    \"2026-04-30\",\n  \"nome\":      \"Hugo Cini SA\",\n  \"documento\": \"76490572000168\",\n  \"tpdoc\":     \"cnpj\",\n  \"cep\":       \"91250000\",\n  \"cidade\":    \"Porto Alegre\",\n  \"uf\":        \"RS\",\n  \"endereco\":  \"Av Ipiranga 1000\",\n  \"bairro\":    \"Azenha\",\n  \"fantasia\":  \"Hugo Cini\"\n}"
+          "options": { "raw": { "language": "json" } },
+          "raw": "{\n  \"nf\": \"12345\",\n  \"valor\": 100.00,\n  \"vencto\": \"2026-05-10\",\n  \"nome\": \"Empresa XYZ LTDA\",\n  \"documento\": \"76490572000168\",\n  \"tpdoc\": \"cnpj\",\n  \"cep\": \"90010020\",\n  \"cidade\": \"Porto Alegre\",\n  \"uf\": \"RS\",\n  \"endereco\": \"Av. Principal, 500\",\n  \"frmpag\": \"BOL\",\n  \"filial\": \"01\"\n}"
         }
       }
     },
     {
-      "name": "Bolecode - R$ (PIX simples: apenas QR PIX)",
+      "name": "PIX",
       "request": {
         "method": "POST",
-        "url": "{{base_url}}/bolecode",
         "header": [
           {
             "key": "Content-Type",
             "value": "application/json"
           }
         ],
+        "url": {
+          "raw": "{{base_url}}/pix",
+          "host": ["{{base_url}}"],
+          "path": ["pix"]
+        },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nf\":        \"000456\",\n  \"filial\":    \"010101\",\n  \"prefixo\":   \"NF\",\n  \"parcela\":   \"001\",\n  \"frmpag\":    \"R$\",\n  \"valor\":     350.50,\n  \"vencto\":    \"2026-04-30\",\n  \"nome\":      \"Nerias Lima Sousa\",\n  \"documento\": \"81490690387\",\n  \"tpdoc\":     \"cpf\",\n  \"cep\":       \"01310100\",\n  \"cidade\":    \"São Paulo\",\n  \"uf\":        \"SP\",\n  \"endereco\":  \"Av Paulista 1000\",\n  \"bairro\":    \"Bela Vista\",\n  \"fantasia\":  \"\"\n}"
-        }
-      }
-    },
-    {
-      "name": "Bolecode - Erro campo obrigatório faltando",
-      "request": {
-        "method": "POST",
-        "url": "{{base_url}}/bolecode",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"nf\":     \"000789\",\n  \"filial\": \"010101\"\n}"
+          "options": { "raw": { "language": "json" } },
+          "raw": "{\n  \"nf\": \"12345\",\n  \"valor\": 100.00\n}"
         }
       }
     }
