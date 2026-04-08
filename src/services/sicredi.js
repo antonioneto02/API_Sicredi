@@ -1,4 +1,5 @@
 const axios = require('axios');
+const sql   = require('mssql');
 const { PDFDocument, rgb } = require('pdf-lib');
 const poppler = require('pdf-poppler');
 const fs = require('fs');
@@ -13,7 +14,57 @@ const {
   SICREDI_COOPERATIVA,
   SICREDI_POSTO,
   SICREDI_CODIGO_BENEFICIARIO,
+  DB_HOST_SD,
+  DB_USER_SD,
+  DB_PASSWORD_SD,
+  DB_NAME_DW,
 } = require('../config');
+
+let dwPool = null;
+async function getDwPool() {
+  if (!dwPool) {
+    dwPool = await sql.connect({
+      server:   DB_HOST_SD,
+      database: DB_NAME_DW,
+      user:     DB_USER_SD,
+      password: DB_PASSWORD_SD,
+      options:  { encrypt: false, trustServerCertificate: true },
+      pool:     { max: 3, min: 0, idleTimeoutMillis: 30000 },
+    });
+  }
+  return dwPool;
+}
+
+async function buscarFeriados(de, ate) {
+  const p = await getDwPool();
+  const result = await p.request()
+    .input('de',  sql.Date, de)
+    .input('ate', sql.Date, ate)
+    .query(`SELECT DATA FROM CALENDARIO WHERE FERIADO = 1 AND DATA BETWEEN @de AND @ate`);
+  return new Set(result.recordset.map(r => {
+    const d = new Date(r.DATA);
+    return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
+  }));
+}
+
+async function proximoDiaUtil(vencto) {
+  const [ano, mes, dia] = vencto.split('-').map(Number);
+  const venc = new Date(Date.UTC(ano, mes - 1, dia));
+  const de  = new Date(Date.UTC(ano, mes - 1, dia + 1));
+  const ate = new Date(Date.UTC(ano, mes - 1, dia + 15));
+  const feriados = await buscarFeriados(de, ate);
+  const candidato = new Date(venc);
+  candidato.setUTCDate(candidato.getUTCDate() + 1);
+
+  for (let i = 0; i < 15; i++) {
+    const dow = candidato.getUTCDay(); 
+    const str = `${candidato.getUTCFullYear()}-${String(candidato.getUTCMonth() + 1).padStart(2,'0')}-${String(candidato.getUTCDate()).padStart(2,'0')}`;
+    if (dow !== 0 && dow !== 6 && !feriados.has(str)) return str;
+    candidato.setUTCDate(candidato.getUTCDate() + 1);
+  }
+
+  throw new Error('Não foi possível encontrar próximo dia útil nos próximos 15 dias');
+}
 
 async function autenticar() {
   const url = `${SICREDI_BASE_URL}/auth/openapi/token`;
@@ -83,6 +134,10 @@ async function chamarSicredi(url, payload, token) {
 
 async function gerarBoletoHibrido(token, dados) {
   const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos`;
+
+  const dataInicioEncargos = await proximoDiaUtil(dados.vencto);
+  logger.info(`Próximo dia útil após vencimento (${dados.vencto}): ${dataInicioEncargos}`);
+
   const payload = {
     codigoBeneficiario: SICREDI_CODIGO_BENEFICIARIO,
     dataVencimento:     dados.vencto,
@@ -91,6 +146,13 @@ async function gerarBoletoHibrido(token, dados) {
     seuNumero:          String(dados.nf),
     valor:              Number(dados.valor),
     pagador:            buildPagador(dados),
+    tipoJuros:              'PERCENTUAL',
+    tipoJurosPercentual:    'MENSAL',
+    juros:                  1.00,
+    dataInicioJuros:        dataInicioEncargos,
+    tipoMulta:              'PERCENTUAL',
+    multa:                  1.00,
+    dataInicioMulta:        dataInicioEncargos,
   };
   logger.info(`Gerando boleto HÍBRIDO | NF=${dados.nf} | Valor=${dados.valor}`);
   const resultado = await chamarSicredi(url, payload, token);
@@ -205,4 +267,186 @@ async function pdfParaPng(pdfBase64) {
   }
 }
 
-module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, cobrirFichaBoleto, pdfParaPng };
+async function consultarFrancesinha(token, { dataLancamento, tipoMovimento, pagina = 0 }) {
+  const [ano, mes, dia] = dataLancamento.split('-');
+  const dataFormatada = `${dia}/${mes}/${ano}`;
+  const url = `${SICREDI_BASE_URL}/cobranca/v1/cobranca-financeiro/movimentacoes/`;
+  const params = {
+    codigoBeneficiario: SICREDI_CODIGO_BENEFICIARIO,
+    cooperativa:        SICREDI_COOPERATIVA,
+    posto:              SICREDI_POSTO,
+    dataLancamento:     dataFormatada,
+    pagina,
+  };
+  if (tipoMovimento) params.tipoMovimento = tipoMovimento;
+
+  try {
+    const response = await axios.get(url, {
+      params,
+      headers: {
+        ...headersCobranca(token),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      timeout: 30000,
+    });
+    logger.info(`Francesinha consultada | data=${dataFormatada} | total=${response.data?.total ?? 0}`);
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`Falha ao consultar francesinha → HTTP ${status} | ${detalhe}`);
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
+async function consultarLiquidadosPorPeriodo(token, dataInicio, dataFim) {
+  const inicio = new Date(dataInicio + 'T00:00:00Z');
+  const fim    = new Date(dataFim    + 'T00:00:00Z');
+  const diffDias = Math.round((fim - inicio) / 86400000);
+
+  if (diffDias < 0)   throw new Error('dataInicio deve ser anterior ou igual a dataFim.');
+  if (diffDias > 31)  throw new Error('O período máximo permitido é de 31 dias.');
+
+  const resultados = [];
+  for (let i = 0; i <= diffDias; i++) {
+    const d = new Date(inicio);
+    d.setUTCDate(d.getUTCDate() + i);
+    const dataStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
+    try {
+      const boletos = await consultarLiquidadosPorDia(token, dataStr);
+      if (Array.isArray(boletos) && boletos.length > 0) {
+        resultados.push(...boletos.map(b => ({ ...b, _data: dataStr })));
+      }
+    } catch (err) {
+      logger.warn(`Sem resultado para ${dataStr}: ${err.message}`);
+    }
+  }
+  logger.info(`Liquidados por período ${dataInicio} → ${dataFim} | total=${resultados.length}`);
+  return resultados;
+}
+
+async function consultarBoletosCadastrados(token, { seuNumero, idTituloEmpresa }) {
+  const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos/cadastrados`;
+  const params = { codigoBeneficiario: SICREDI_CODIGO_BENEFICIARIO };
+  if (seuNumero)      params.seuNumero      = seuNumero;
+  if (idTituloEmpresa) params.idTituloEmpresa = idTituloEmpresa;
+
+  try {
+    const response = await axios.get(url, {
+      params,
+      headers: {
+        ...headersCobranca(token),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      timeout: 30000,
+    });
+    const filtro = seuNumero ? `seuNumero=${seuNumero}` : `idTituloEmpresa=${idTituloEmpresa}`;
+    logger.info(`Boletos cadastrados consultados | ${filtro} | total=${response.data?.length ?? 0}`);
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`Falha ao consultar boletos cadastrados → HTTP ${status} | ${detalhe}`);
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
+async function consultarLiquidadosPorDia(token, data) {
+  const [ano, mes, dia] = data.split('-');
+  const diaFormatado = `${dia}/${mes}/${ano}`;
+  const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos/liquidados/dia`;
+  try {
+    const response = await axios.get(url, {
+      params: {
+        codigoBeneficiario: SICREDI_CODIGO_BENEFICIARIO,
+        dia: diaFormatado,
+      },
+      headers: {
+        ...headersCobranca(token),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      timeout: 30000,
+    });
+    logger.info(`Boletos liquidados consultados | data=${diaFormatado} | total=${response.data?.length ?? 0}`);
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`Falha ao consultar liquidados → HTTP ${status} | ${detalhe}`);
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
+async function registrarWebhookBoleto(token, webhookUrl) {
+  const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/webhook/contrato/`;
+  try {
+    const response = await axios.post(url, {
+      cooperativa:     SICREDI_COOPERATIVA,
+      posto:           SICREDI_POSTO,
+      codBeneficiario: SICREDI_CODIGO_BENEFICIARIO,
+      eventos:         ['LIQUIDACAO'],
+      url:             webhookUrl,
+      urlStatus:       'ATIVO',
+      contratoStatus:  'ATIVO',
+      enviarIdTituloEmpresa: true,
+    }, {
+      headers: headersCobranca(token),
+      timeout: 15000,
+    });
+    logger.info(`Webhook boleto registrado | url=${webhookUrl} | HTTP ${response.status}`);
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`Falha ao registrar webhook boleto → HTTP ${status} | ${detalhe}`);
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
+async function consultarWebhookBoleto(token) {
+  const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/webhook/contratos/`;
+  try {
+    const response = await axios.get(url, {
+      params: {
+        cooperativa:  SICREDI_COOPERATIVA,
+        posto:        SICREDI_POSTO,
+        beneficiario: SICREDI_CODIGO_BENEFICIARIO,
+      },
+      headers: headersCobranca(token),
+      timeout: 15000,
+    });
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
+async function alterarWebhookBoleto(token, idContrato, webhookUrl) {
+  const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/webhook/contrato/${idContrato}`;
+  try {
+    const response = await axios.put(url, {
+      cooperativa:     SICREDI_COOPERATIVA,
+      posto:           SICREDI_POSTO,
+      codBeneficiario: SICREDI_CODIGO_BENEFICIARIO,
+      eventos:         ['LIQUIDACAO'],
+      url:             webhookUrl,
+      urlStatus:       'ATIVO',
+      contratoStatus:  'ATIVO',
+      enviarIdTituloEmpresa: true,
+    }, {
+      headers: headersCobranca(token),
+      timeout: 15000,
+    });
+    logger.info(`Webhook boleto alterado | idContrato=${idContrato} | url=${webhookUrl}`);
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`Falha ao alterar webhook boleto → HTTP ${status} | ${detalhe}`);
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
+module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, cobrirFichaBoleto, pdfParaPng, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto };

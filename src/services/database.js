@@ -27,6 +27,33 @@ async function getPool() {
   return pool;
 }
 
+async function verificarElegibilidadePix(nf) {
+  const p = await getPool();
+  const result = await p.request()
+    .input('nf', sql.VarChar(20), nf)
+    .query(`
+      SELECT F71_STATUS, F71_IDTRAN
+      FROM   F71010
+      WHERE  F71_NUM  = @nf
+        AND  D_E_L_E_T_ = ' '
+    `);
+
+  if (result.recordset.length === 0) {
+    throw new Error(`NF ${nf} não encontrada na F71010.`);
+  }
+
+  const row    = result.recordset[0];
+  const status = String(row.F71_STATUS || '').trim();
+  const idtran = String(row.F71_IDTRAN || '').trim();
+
+  if (status !== '5') {
+    throw new Error(`NF ${nf} com status '${status}' na F71010 — esperado '5'.`);
+  }
+  if (idtran !== '') {
+    throw new Error(`NF ${nf} já possui IDTRAN preenchido na F71010: '${idtran}'.`);
+  }
+}
+
 async function salvarPix(nf, txid, emvPix) {
   const p = await getPool();
   await p.request()
@@ -37,8 +64,8 @@ async function salvarPix(nf, txid, emvPix) {
       UPDATE F71010
       SET    F71_STATUS = '3',
              F71_IDTRAN = @txid,
-             F71_EMVPIX = @emv
-      WHERE  F71_NFNUM   = @nf
+             F71_EMVPIX = CONVERT(varbinary(MAX),@emv)
+      WHERE  F71_NUM   = @nf
         AND  D_E_L_E_T_  = ' '
     `);
   logger.info(`F71010 atualizado | NF=${nf} | txid=${txid}`);
@@ -55,7 +82,7 @@ async function salvarBoleto(nf, txid, emvPix, nossoNumero, codigoBarras, agedep)
       SET    F71_STATUS = '3',
              F71_IDTRAN = @txid,
              F71_EMVPIX = @emv
-      WHERE  F71_NFNUM   = @nf
+      WHERE  F71_NUM   = @nf
         AND  D_E_L_E_T_  = ' '
     `);
   logger.info(`F71010 atualizado | NF=${nf}`);
@@ -78,4 +105,4 @@ async function salvarBoleto(nf, txid, emvPix, nossoNumero, codigoBarras, agedep)
   logger.info(`SE1010 atualizado | NF=${nf} | nossoNumero=${nossoNumero}`);
 }
 
-module.exports = { salvarPix, salvarBoleto };
+module.exports = { verificarElegibilidadePix, salvarPix, salvarBoleto };

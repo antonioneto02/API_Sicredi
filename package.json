@@ -4,8 +4,8 @@
   "description": "API de geração de boleto/PIX Sicredi — dados recebidos do Protheus",
   "main": "src/app.js",
   "scripts": {
-    "start": "title Central De Tarefas && node src/app.js",
-    "dev": "title Central De Tarefas && nodemon src/app.js"
+    "start": "title Sicredi && node src/app.js",
+    "dev": "title Sicredi && nodemon src/app.js"
   },
   "dependencies": {
     "axios": "^1.6.0",

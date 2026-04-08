@@ -6,52 +6,149 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "http://localhost:3012",
+      "value": "http://consultas.cini.com.br:3012",
       "type": "string"
     }
   ],
   "item": [
     {
       "name": "Boleto",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+      "item": [
+        {
+          "name": "Gerar Boleto",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/bolecode",
+              "host": ["{{base_url}}"],
+              "path": ["bolecode"]
+            },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"nf\": \"12345\",\n  \"valor\": 100.00,\n  \"vencto\": \"2026-05-10\",\n  \"nome\": \"Empresa XYZ LTDA\",\n  \"documento\": \"76490572000168\",\n  \"tpdoc\": \"cnpj\",\n  \"cep\": \"90010020\",\n  \"cidade\": \"Porto Alegre\",\n  \"uf\": \"RS\",\n  \"endereco\": \"Av. Principal, 500\",\n  \"frmpag\": \"BOL\",\n  \"filial\": \"01\"\n}"
+            }
           }
-        ],
-        "url": {
-          "raw": "{{base_url}}/bolecode",
-          "host": ["{{base_url}}"],
-          "path": ["bolecode"]
         },
-        "body": {
-          "mode": "raw",
-          "options": { "raw": { "language": "json" } },
-          "raw": "{\n  \"nf\": \"12345\",\n  \"valor\": 100.00,\n  \"vencto\": \"2026-05-10\",\n  \"nome\": \"Empresa XYZ LTDA\",\n  \"documento\": \"76490572000168\",\n  \"tpdoc\": \"cnpj\",\n  \"cep\": \"90010020\",\n  \"cidade\": \"Porto Alegre\",\n  \"uf\": \"RS\",\n  \"endereco\": \"Av. Principal, 500\",\n  \"frmpag\": \"BOL\",\n  \"filial\": \"01\"\n}"
+        {
+          "name": "Consultar Boletos Cadastrados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/boleto/cadastrados?seuNumero=12345",
+              "host": ["{{base_url}}"],
+              "path": ["boleto", "cadastrados"],
+              "query": [
+                { "key": "seuNumero",       "value": "12345",          "description": "Seu número informado no cadastro do boleto (máx 10 chars). Use este OU idTituloEmpresa." },
+                { "key": "idTituloEmpresa", "value": "9999-TESTE-89ABC", "description": "ID título empresa informado no cadastro (máx 25 chars). Use este OU seuNumero.", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Consultar Liquidados por Período",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/boleto/liquidados/periodo?dataInicio=2026-04-01&dataFim=2026-04-08",
+              "host": ["{{base_url}}"],
+              "path": ["boleto", "liquidados", "periodo"],
+              "query": [
+                { "key": "dataInicio", "value": "2026-04-01", "description": "Data inicial no formato YYYY-MM-DD" },
+                { "key": "dataFim",    "value": "2026-04-08", "description": "Data final no formato YYYY-MM-DD (máx 31 dias de intervalo)" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Francesinha (Movimentações Financeiras)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/boleto/francesinha?data=2026-04-08",
+              "host": ["{{base_url}}"],
+              "path": ["boleto", "francesinha"],
+              "query": [
+                { "key": "data",           "value": "2026-04-08", "description": "Data de lançamento no formato YYYY-MM-DD" },
+                { "key": "tipoMovimento",  "value": "CREDITO",    "description": "CREDITO ou DEBITO (omitir para ambos)", "disabled": true },
+                { "key": "pagina",         "value": "0",          "description": "Número da página (1000 registros/página)", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Consultar Liquidados por Dia",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/boleto/liquidados?data=2026-04-08",
+              "host": ["{{base_url}}"],
+              "path": ["boleto", "liquidados"],
+              "query": [
+                { "key": "data", "value": "2026-04-08", "description": "Data no formato YYYY-MM-DD (horário de Brasília)" }
+              ]
+            }
+          }
         }
-      }
+      ]
     },
     {
       "name": "PIX",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
+      "item": [
+        {
+          "name": "Gerar PIX",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/pix",
+              "host": ["{{base_url}}"],
+              "path": ["pix"]
+            },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"nf\": \"12345\",\n  \"valor\": 100.00\n}"
+            }
           }
-        ],
-        "url": {
-          "raw": "{{base_url}}/pix",
-          "host": ["{{base_url}}"],
-          "path": ["pix"]
         },
-        "body": {
-          "mode": "raw",
-          "options": { "raw": { "language": "json" } },
-          "raw": "{\n  \"nf\": \"12345\",\n  \"valor\": 100.00\n}"
+        {
+          "name": "Listar Cobranças (cob)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/pix/cobrancas?inicio=2026-04-08T00:00:00&fim=2026-04-08T23:59:59&status=CONCLUIDA",
+              "host": ["{{base_url}}"],
+              "path": ["pix", "cobrancas"],
+              "query": [
+                { "key": "inicio", "value": "2026-04-08T00:00:00", "description": "Início em horário de Brasília" },
+                { "key": "fim",    "value": "2026-04-08T23:59:59", "description": "Fim em horário de Brasília" },
+                { "key": "status", "value": "CONCLUIDA" },
+                { "key": "paginaAtual",    "value": "0",   "disabled": true },
+                { "key": "itensPorPagina", "value": "100", "disabled": true }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
         }
       }
     }

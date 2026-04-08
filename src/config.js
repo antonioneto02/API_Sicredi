@@ -22,4 +22,9 @@ module.exports = {
   SICREDI_PIX_CERT_PATH:       process.env.SICREDI_PIX_CERT_PATH,
   SICREDI_PIX_KEY_PATH:        process.env.SICREDI_PIX_KEY_PATH,
   SICREDI_PIX_KEY_PASSPHRASE:  process.env.SICREDI_PIX_KEY_PASSPHRASE,
+
+  DB_HOST_SD:     process.env.DB_HOST_SD,
+  DB_USER_SD:     process.env.DB_USER_SD,
+  DB_PASSWORD_SD: process.env.DB_PASSWORD_SD,
+  DB_NAME_DW:     process.env.DB_NAME_DW,
 };

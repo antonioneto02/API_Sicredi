@@ -1,0 +1,300 @@
+2026-04-07 15:12:39 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 09:05:26 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:05:26 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:07:59 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:07:59 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:07:59 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 09:07:59 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 09:07:59 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 09:09:41 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:09:41 [INFO] Registrando webhook PIX | chave=76490572000168 | url=https://consultas.cini.com.br:3012/webhook/sicredi/pix
+2026-04-08 09:09:41 [ERROR] Falha ao registrar webhook PIX → HTTP 404 | {"type":"https://pix.bcb.gov.br/api/v2/error/NaoEncontrado","title":"Entidade não encontrada.","status":404,"detail":"Entidade não encontrada.","correlationId":"7540784e-45612576"}
+2026-04-08 09:09:41 [ERROR] Erro ao registrar webhook PIX: HTTP 404 — {"type":"https://pix.bcb.gov.br/api/v2/error/NaoEncontrado","title":"Entidade não encontrada.","status":404,"detail":"Entidade não encontrada.","correlationId":"7540784e-45612576"}
+2026-04-08 09:09:41 [WARN] HTTP 502 → HTTP 404 — {"type":"https://pix.bcb.gov.br/api/v2/error/NaoEncontrado","title":"Entidade não encontrada.","status":404,"detail":"Entidade não encontrada.","correlationId":"7540784e-45612576"}
+2026-04-08 09:10:34 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:13:03 [INFO] Registrando webhook PIX | chave=76490572000168 | url=https://consultas.cini.com.br:3012/webhook/sicredi/pix
+2026-04-08 09:13:03 [ERROR] Falha ao registrar webhook PIX → HTTP 404 | {"type":"https://pix.bcb.gov.br/api/v2/error/NaoEncontrado","title":"Entidade não encontrada.","status":404,"detail":"Entidade não encontrada.","correlationId":"01c082ed-21251420"}
+2026-04-08 09:13:03 [ERROR] Erro ao registrar webhook PIX: HTTP 404 — {"type":"https://pix.bcb.gov.br/api/v2/error/NaoEncontrado","title":"Entidade não encontrada.","status":404,"detail":"Entidade não encontrada.","correlationId":"01c082ed-21251420"}
+2026-04-08 09:13:03 [WARN] HTTP 502 → HTTP 404 — {"type":"https://pix.bcb.gov.br/api/v2/error/NaoEncontrado","title":"Entidade não encontrada.","status":404,"detail":"Entidade não encontrada.","correlationId":"01c082ed-21251420"}
+2026-04-08 09:13:15 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:13:15 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:13:15 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 09:13:15 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 09:13:15 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 09:13:45 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:13:45 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:13:45 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 09:13:45 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 09:13:45 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 09:13:54 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:13:54 [INFO] Registrando webhook PIX | chave=76490572000168 | url=https://consultas.cini.com.br:3012/webhook/sicredi/pix
+2026-04-08 09:13:54 [ERROR] Falha ao registrar webhook PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:13:54 [ERROR] Erro ao registrar webhook PIX: HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:13:54 [WARN] HTTP 502 → HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:26:21 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:26:21 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:26:21 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 09:26:21 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 09:26:21 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 09:38:08 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:38:08 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:38:08 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 09:38:08 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 09:38:08 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 09:42:39 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:42:39 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:42:39 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 09:42:39 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 09:42:39 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 09:47:20 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:47:20 [INFO] Registrando webhook PIX | chave=financeiro@cini.com.br | url=https://200.225.247.91:3012/webhook/sicredi/pix
+2026-04-08 09:47:20 [ERROR] Falha ao registrar webhook PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:47:42 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:47:42 [INFO] Registrando webhook PIX | chave=financeiro@cini.com.br | url=https://consultas.cini.com.br:3012/webhook/sicredi/pix
+2026-04-08 09:47:43 [ERROR] Falha ao registrar webhook PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:47:51 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:47:51 [INFO] Registrando webhook PIX | chave=financeiro@cini.com.br | url=https://consultas.cini.com.br/webhook/sicredi/pix
+2026-04-08 09:47:51 [INFO] Webhook PIX registrado com sucesso. HTTP 200
+2026-04-08 09:49:36 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:42:58 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 09:53:05 [INFO] Registrando webhook PIX | chave=financeiro@cini.com.br | url=https://200.225.247.91:3012/webhook/sicredi/pix
+2026-04-08 09:53:05 [ERROR] Falha ao registrar webhook PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:53:05 [ERROR] Erro ao registrar webhook PIX: HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:53:05 [WARN] HTTP 502 → HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"webhookUrl","propriedade":"A URL informada é inválida."}]}
+2026-04-08 09:53:57 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 09:53:58 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 09:53:58 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 09:53:58 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 09:53:58 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 09:56:42 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:09:07 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:09:07 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-08T23:59:59Z | status=CONCLUIDA
+2026-04-08 10:09:07 [ERROR] Falha ao listar cobranças PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:09:07 [ERROR] Erro ao listar cobranças PIX: HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:09:07 [WARN] HTTP 502 → HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:09:48 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:09:48 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-04T23:59:59Z | status=CONCLUIDA
+2026-04-08 10:09:49 [INFO] Cobranças listadas | total=0
+2026-04-08 10:10:32 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:10:32 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-04T23:59:59Z | status=CONCLUIDA
+2026-04-08 10:10:32 [INFO] Cobranças listadas | total=0
+2026-04-08 10:10:34 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:10:34 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-04T23:59:59Z | status=CONCLUIDA
+2026-04-08 10:10:34 [INFO] Cobranças listadas | total=0
+2026-04-08 10:15:48 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 10:15:48 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 10:15:48 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 10:15:48 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 10:15:48 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 10:16:16 [INFO] === Requisição PIX recebida | NF=12345 ===
+2026-04-08 10:16:16 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:16:16 [INFO] Gerando PIX (cob) | NF=12345 | Valor=00.01
+2026-04-08 10:16:16 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"0.01","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 12345"}
+2026-04-08 10:16:16 [INFO] PIX cob criado | txid=93c76e06f20c4fcbbb1f0cc624758362 | HTTP 201
+2026-04-08 10:16:16 [INFO] Resposta cob: {"txid":"93c76e06f20c4fcbbb1f0cc624758362","revisao":0,"loc":{"id":1971104573,"location":"pix-qrcode.sicredi.com.br/qr/v2/1f3d59fd42ec4252b744843c70697798","tipoCob":"cob","criacao":"2026-04-08T13:16:16.327Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/1f3d59fd42ec4252b744843c706977985204000053039865802BR5903PIX6006Cidade62070503***6304CC7C","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 12345","calendario":{"criacao":"2026-04-08T13:16:16.358Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"0.01"},"location":"pix-qrcode.sicredi.com.br/qr/v2/1f3d59fd42ec4252b744843c70697798"}
+2026-04-08 10:16:16 [INFO] PIX gerado | NF=12345 | txid=93c76e06f20c4fcbbb1f0cc624758362
+2026-04-08 10:19:07 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:19:26 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-04T23:59:59Z | status=CONCLUIDA
+2026-04-08 10:19:26 [INFO] Cobranças listadas | total=0
+2026-04-08 10:21:38 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:21:38 [INFO] Listando cobranças PIX | inicio=2026-04-08T00:00:00Z | fim=2026-04-08T23:59:59Z | status=CONCLUIDA
+2026-04-08 10:21:38 [ERROR] Falha ao listar cobranças PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:22:12 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:22:12 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-08T23:59:59Z | status=CONCLUIDA
+2026-04-08 10:22:12 [ERROR] Falha ao listar cobranças PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:22:12 [ERROR] Erro ao listar cobranças PIX: HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:22:12 [WARN] HTTP 502 → HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:22:41 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:22:41 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-08T10:20:00Z | status=CONCLUIDA
+2026-04-08 10:22:41 [INFO] Cobranças listadas | total=0
+2026-04-08 10:22:55 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:22:55 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-08T10:22:00Z | status=CONCLUIDA
+2026-04-08 10:22:56 [INFO] Cobranças listadas | total=0
+2026-04-08 10:23:04 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:23:04 [INFO] Listando cobranças PIX | inicio=2026-04-08T00:00:00Z | fim=2026-04-08T13:23:04.534Z | status=CONCLUIDA
+2026-04-08 10:23:04 [INFO] Cobranças listadas | total=1
+2026-04-08 10:24:13 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:24:13 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-08T13:23:04Z | status=CONCLUIDA
+2026-04-08 10:24:13 [INFO] Cobranças listadas | total=1
+2026-04-08 10:25:49 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:25:49 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00 | fim=2026-04-08T10:23:04 | status=CONCLUIDA
+2026-04-08 10:25:49 [ERROR] Falha ao listar cobranças PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"inicio","propriedade":"Data e hora informadas não respeitam a RFC3339"},{"razao":"fim","propriedade":"Data e hora informadas não respeitam a RFC3339"}]}
+2026-04-08 10:25:49 [ERROR] Erro ao listar cobranças PIX: HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"inicio","propriedade":"Data e hora informadas não respeitam a RFC3339"},{"razao":"fim","propriedade":"Data e hora informadas não respeitam a RFC3339"}]}
+2026-04-08 10:25:49 [WARN] HTTP 502 → HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"inicio","propriedade":"Data e hora informadas não respeitam a RFC3339"},{"razao":"fim","propriedade":"Data e hora informadas não respeitam a RFC3339"}]}
+2026-04-08 10:26:07 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:26:07 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00Z | fim=2026-04-08T13:23:04Z | status=CONCLUIDA
+2026-04-08 10:26:07 [INFO] Cobranças listadas | total=1
+2026-04-08 10:28:00 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 10:28:00 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 10:28:00 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 10:28:00 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 10:28:00 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 10:28:07 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:28:07 [INFO] Listando cobranças PIX | inicio=2026-04-01T00:00:00.000Z | fim=2026-04-08T13:23:04.000Z | status=CONCLUIDA
+2026-04-08 10:28:07 [INFO] Cobranças listadas | total=1
+2026-04-08 10:28:14 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:28:14 [INFO] Listando cobranças PIX | inicio=2026-04-01T03:00:00.000Z | fim=2026-04-08T16:23:04.000Z | status=CONCLUIDA
+2026-04-08 10:28:15 [ERROR] Falha ao listar cobranças PIX → HTTP 400 | {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:28:15 [ERROR] Erro ao listar cobranças PIX: HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:28:15 [WARN] HTTP 502 → HTTP 400 — {"type":"https://pix.bcb.gov.br/api/v2/error/RequisicaoInvalida","title":"Requisição Inválida","status":400,"detail":"A requisição não respeita o schema ou está semanticamente errada.","violacoes":[{"razao":"fim","propriedade":"Data e hora informadas não podem ser maiores que a data e hora atual."}]}
+2026-04-08 10:28:34 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:28:34 [INFO] Listando cobranças PIX | inicio=2026-04-01T03:00:00.000Z | fim=2026-04-08T13:28:00.000Z | status=CONCLUIDA
+2026-04-08 10:28:35 [INFO] Cobranças listadas | total=1
+2026-04-08 10:30:12 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:37:33 [WARN] Webhook PIX rejeitado — certificado do cliente não autorizado.
+2026-04-08 10:40:26 [INFO] webhook-sicredi.cer carregado — validação mTLS ativa na rota /webhook/sicredi/pix.
+2026-04-08 10:40:26 [INFO] Sicredi API rodando em https://localhost:3012
+2026-04-08 10:40:26 [INFO]   Interface tap3685946d-fe: https://192.168.0.43:3012
+2026-04-08 10:40:26 [INFO]   Interface Loopback Pseudo-Interface 1: https://127.0.0.1:3012
+2026-04-08 10:40:26 [INFO]   Webhook PIX endpoint: https://<IP_PUBLICO>:3012/webhook/sicredi/pix
+2026-04-08 10:40:37 [INFO] PIX recebido | txid=teste123 | endToEndId=E76490572202604080001teste | valor=00.01 | horario=2026-04-08T09:00:00.000Z | chave=financeiro@cini.com.br
+2026-04-08 10:40:37 [WARN] WEBHOOK_COMPENSACAO_URL não configurado — notificação de compensação ignorada.
+2026-04-08 10:41:39 [INFO] === Requisição PIX recebida | NF=12345 ===
+2026-04-08 10:41:39 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:41:39 [INFO] Gerando PIX (cob) | NF=12345 | Valor=00.01
+2026-04-08 10:41:39 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"0.01","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 12345"}
+2026-04-08 10:41:39 [INFO] PIX cob criado | txid=d331084927344111b47e7696f59c28da | HTTP 201
+2026-04-08 10:41:39 [INFO] Resposta cob: {"txid":"d331084927344111b47e7696f59c28da","revisao":0,"loc":{"id":1971194822,"location":"pix-qrcode.sicredi.com.br/qr/v2/ab966f8b1c9d42908c26c80656bb5950","tipoCob":"cob","criacao":"2026-04-08T13:41:39.285Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/ab966f8b1c9d42908c26c80656bb59505204000053039865802BR5903PIX6006Cidade62070503***630489D0","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 12345","calendario":{"criacao":"2026-04-08T13:41:39.305Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"0.01"},"location":"pix-qrcode.sicredi.com.br/qr/v2/ab966f8b1c9d42908c26c80656bb5950"}
+2026-04-08 10:41:39 [INFO] PIX gerado | NF=12345 | txid=d331084927344111b47e7696f59c28da
+2026-04-08 10:44:47 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 10:44:54 [INFO] Registrando webhook PIX | chave=financeiro@cini.com.br | url=https://consultas.cini.com.br/webhook/sicredi/pix
+2026-04-08 10:44:54 [INFO] Webhook PIX registrado com sucesso. HTTP 200
+2026-04-08 10:44:54 [INFO] Webhook PIX registrado | url=https://consultas.cini.com.br/webhook/sicredi/pix
+2026-04-08 11:12:11 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 11:12:11 [INFO] Registrando webhook PIX | chave=financeiro@cini.com.br | url=https://consultas.cini.com.br/sicredi
+2026-04-08 11:12:11 [INFO] Webhook PIX registrado com sucesso. HTTP 200
+2026-04-08 11:12:11 [INFO] Webhook PIX registrado | url=https://consultas.cini.com.br/sicredi
+2026-04-08 11:12:19 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 11:15:03 [INFO] === Requisição PIX recebida | NF=12345 ===
+2026-04-08 11:15:04 [INFO] Token PIX Sicredi (cob) obtido com sucesso.
+2026-04-08 11:15:04 [INFO] Gerando PIX (cob) | NF=12345 | Valor=00.01
+2026-04-08 11:15:04 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"0.01","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 12345"}
+2026-04-08 11:15:04 [INFO] PIX cob criado | txid=d6c81ec2e6894cd19d7a1e5ed110efb3 | HTTP 201
+2026-04-08 11:15:04 [INFO] Resposta cob: {"txid":"d6c81ec2e6894cd19d7a1e5ed110efb3","revisao":0,"loc":{"id":1971319262,"location":"pix-qrcode.sicredi.com.br/qr/v2/10369711f017434389706872fd06d32c","tipoCob":"cob","criacao":"2026-04-08T14:15:04.157Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/10369711f017434389706872fd06d32c5204000053039865802BR5903PIX6006Cidade62070503***630412EF","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 12345","calendario":{"criacao":"2026-04-08T14:15:04.185Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"0.01"},"location":"pix-qrcode.sicredi.com.br/qr/v2/10369711f017434389706872fd06d32c"}
+2026-04-08 11:15:04 [INFO] PIX gerado | NF=12345 | txid=d6c81ec2e6894cd19d7a1e5ed110efb3
+2026-04-08 11:25:52 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 11:25:52 [INFO]   Interface tap3685946d-fe: http://192.168.0.43:3012
+2026-04-08 11:25:52 [INFO]   Interface Loopback Pseudo-Interface 1: http://127.0.0.1:3012
+2026-04-08 11:26:33 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 13:21:44 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 13:21:49 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 13:21:49 [INFO] Webhook boleto registrado | url=https://consultas.cini.com.br/boleto | HTTP 201
+2026-04-08 13:21:49 [INFO] Webhook boleto registrado | url=https://consultas.cini.com.br/boleto
+2026-04-08 13:47:58 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 13:53:00 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 13:53:50 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-08 13:53:50 [INFO] Listando cobranças PIX | inicio=2026-04-08T03:00:00.000Z | fim=2026-04-08T16:53:00.000Z | status=CONCLUIDA
+2026-04-08 13:53:50 [INFO] Cobranças listadas | total=3
+2026-04-08 13:54:49 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 13:54:49 [INFO] Boletos liquidados consultados | data=02/04/2026 | total=0
+2026-04-08 14:06:36 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 14:08:06 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:08:06 [INFO] Boletos liquidados consultados | data=01/04/2026 | total=0
+2026-04-08 14:08:33 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:08:33 [INFO] Boletos liquidados consultados | data=23/03/2026 | total=0
+2026-04-08 14:08:50 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:08:50 [INFO] Boletos liquidados consultados | data=22/03/2026 | total=0
+2026-04-08 14:09:10 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:09:10 [INFO] Boletos liquidados consultados | data=08/04/2026 | total=0
+2026-04-08 14:15:21 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 14:22:42 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:22:42 [ERROR] Falha ao consultar boletos cadastrados → HTTP 400 | {"timestamp":"2026-04-08T17:22:42.701+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:22:42 [ERROR] Erro ao consultar boletos cadastrados: HTTP 400 — {"timestamp":"2026-04-08T17:22:42.701+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:22:42 [WARN] HTTP 502 → HTTP 400 — {"timestamp":"2026-04-08T17:22:42.701+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:24:15 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:24:16 [ERROR] Falha ao consultar boletos cadastrados → HTTP 400 | {"timestamp":"2026-04-08T17:24:16.055+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:24:16 [ERROR] Erro ao consultar boletos cadastrados: HTTP 400 — {"timestamp":"2026-04-08T17:24:16.055+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:24:16 [WARN] HTTP 502 → HTTP 400 — {"timestamp":"2026-04-08T17:24:16.055+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:24:35 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:24:35 [ERROR] Falha ao consultar boletos cadastrados → HTTP 404 | {"timestamp":"2026-04-08T17:24:35.691+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:24:35 [ERROR] Erro ao consultar boletos cadastrados: HTTP 404 — {"timestamp":"2026-04-08T17:24:35.691+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:24:35 [WARN] HTTP 502 → HTTP 404 — {"timestamp":"2026-04-08T17:24:35.691+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:24 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:25:24 [ERROR] Falha ao consultar boletos cadastrados → HTTP 400 | {"timestamp":"2026-04-08T17:25:24.243+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:25:24 [ERROR] Erro ao consultar boletos cadastrados: HTTP 400 — {"timestamp":"2026-04-08T17:25:24.243+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:25:24 [WARN] HTTP 502 → HTTP 400 — {"timestamp":"2026-04-08T17:25:24.243+00:00","error":"BAD_REQUEST","code":"400","message":"O seu numero do boleto deve ter até 10 caracteres."}
+2026-04-08 14:25:36 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:25:36 [ERROR] Falha ao consultar boletos cadastrados → HTTP 404 | {"timestamp":"2026-04-08T17:25:36.633+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:36 [ERROR] Erro ao consultar boletos cadastrados: HTTP 404 — {"timestamp":"2026-04-08T17:25:36.633+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:36 [WARN] HTTP 502 → HTTP 404 — {"timestamp":"2026-04-08T17:25:36.633+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:41 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:25:41 [ERROR] Falha ao consultar boletos cadastrados → HTTP 404 | {"timestamp":"2026-04-08T17:25:41.601+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:41 [ERROR] Erro ao consultar boletos cadastrados: HTTP 404 — {"timestamp":"2026-04-08T17:25:41.601+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:41 [WARN] HTTP 502 → HTTP 404 — {"timestamp":"2026-04-08T17:25:41.601+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:58 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:25:59 [ERROR] Falha ao consultar boletos cadastrados → HTTP 404 | {"timestamp":"2026-04-08T17:25:59.339+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:59 [ERROR] Erro ao consultar boletos cadastrados: HTTP 404 — {"timestamp":"2026-04-08T17:25:59.339+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:25:59 [WARN] HTTP 502 → HTTP 404 — {"timestamp":"2026-04-08T17:25:59.339+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:28:03 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:28:03 [ERROR] Falha ao consultar boletos cadastrados → HTTP 404 | {"timestamp":"2026-04-08T17:28:03.680+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:28:03 [ERROR] Erro ao consultar boletos cadastrados: HTTP 404 — {"timestamp":"2026-04-08T17:28:03.680+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:28:03 [WARN] HTTP 502 → HTTP 404 — {"timestamp":"2026-04-08T17:28:03.680+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:31:14 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:31:14 [ERROR] Falha ao consultar boletos cadastrados → HTTP 404 | {"timestamp":"2026-04-08T17:31:14.886+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:31:14 [ERROR] Erro ao consultar boletos cadastrados: HTTP 404 — {"timestamp":"2026-04-08T17:31:14.886+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:31:14 [WARN] HTTP 502 → HTTP 404 — {"timestamp":"2026-04-08T17:31:14.886+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-08 14:57:47 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 14:57:53 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:57:54 [ERROR] Falha ao consultar francesinha → HTTP 400 | {"timestamp":"2026-04-08T17:57:53.993+00:00","error":"BAD_REQUEST","code":"400","message":"O campo tipo movimento deve ser CREDITO, DEBITO ou AMBOS."}
+2026-04-08 14:57:54 [ERROR] Erro ao consultar francesinha: HTTP 400 — {"timestamp":"2026-04-08T17:57:53.993+00:00","error":"BAD_REQUEST","code":"400","message":"O campo tipo movimento deve ser CREDITO, DEBITO ou AMBOS."}
+2026-04-08 14:57:54 [WARN] HTTP 502 → HTTP 400 — {"timestamp":"2026-04-08T17:57:53.993+00:00","error":"BAD_REQUEST","code":"400","message":"O campo tipo movimento deve ser CREDITO, DEBITO ou AMBOS."}
+2026-04-08 14:58:04 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:58:04 [INFO] Francesinha consultada | data=23/03/2026 | total=0
+2026-04-08 14:58:18 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:58:18 [INFO] Francesinha consultada | data=23/03/2026 | total=0
+2026-04-08 14:58:30 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:58:30 [INFO] Francesinha consultada | data=22/03/2026 | total=0
+2026-04-08 14:58:41 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:58:41 [INFO] Francesinha consultada | data=20/03/2026 | total=0
+2026-04-08 14:58:47 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:58:47 [INFO] Francesinha consultada | data=23/03/2026 | total=0
+2026-04-08 14:59:05 [INFO] Token Sicredi obtido com sucesso.
+2026-04-08 14:59:06 [INFO] Francesinha consultada | data=23/03/2026 | total=0
+2026-04-08 15:16:07 [INFO] === Requisição PIX recebida | NF=003128684 ===
+2026-04-08 15:16:07 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-08 15:16:07 [INFO] Gerando PIX (cob) | NF=003128684 | Valor=46.3
+2026-04-08 15:16:07 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"46.30","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003128684"}
+2026-04-08 15:16:07 [INFO] PIX cob criado | txid=737c73b0444c47d09403c4c54af3580b | HTTP 201
+2026-04-08 15:16:07 [INFO] Resposta cob: {"txid":"737c73b0444c47d09403c4c54af3580b","revisao":0,"loc":{"id":1972127323,"location":"pix-qrcode.sicredi.com.br/qr/v2/c3183d5f3c63476db84e8625914d562d","tipoCob":"cob","criacao":"2026-04-08T18:16:07.699Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/c3183d5f3c63476db84e8625914d562d5204000053039865802BR5903PIX6006Cidade62070503***63040D99","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003128684","calendario":{"criacao":"2026-04-08T18:16:07.732Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"46.30"},"location":"pix-qrcode.sicredi.com.br/qr/v2/c3183d5f3c63476db84e8625914d562d"}
+2026-04-08 15:16:07 [INFO] PIX gerado | NF=003128684 | txid=737c73b0444c47d09403c4c54af3580b
+2026-04-08 15:16:22 [ERROR] Erro ao processar PIX | NF=003128684 | Failed to connect to afv.cini.com.br:1433 in 15000ms
+2026-04-08 15:26:25 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 15:49:16 [INFO] === Requisição PIX recebida | NF=003128960 ===
+2026-04-08 15:49:17 [INFO] Conexão com banco de dados estabelecida.
+2026-04-08 15:49:17 [WARN] PIX bloqueado | NF=003128960 | Invalid column name 'F71_NFNUM'.
+2026-04-08 15:49:17 [WARN] HTTP 422 → Invalid column name 'F71_NFNUM'.
+2026-04-08 15:51:21 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 15:54:00 [INFO] === Requisição PIX recebida | NF=003128960 ===
+2026-04-08 15:54:00 [INFO] Conexão com banco de dados estabelecida.
+2026-04-08 15:54:00 [WARN] PIX bloqueado | NF=003128960 | NF 003128960 com status '5' na F71010 — esperado '1'.
+2026-04-08 15:54:00 [WARN] HTTP 422 → NF 003128960 com status '5' na F71010 — esperado '1'.
+2026-04-08 15:55:51 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 15:56:15 [INFO] === Requisição PIX recebida | NF=003128960 ===
+2026-04-08 15:56:15 [INFO] Conexão com banco de dados estabelecida.
+2026-04-08 15:56:15 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-08 15:56:15 [INFO] Gerando PIX (cob) | NF=003128960 | Valor=199.27
+2026-04-08 15:56:15 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"199.27","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003128960"}
+2026-04-08 15:56:15 [INFO] PIX cob criado | txid=ac2bd7d3a8b04cba951046d9d82d31d8 | HTTP 201
+2026-04-08 15:56:15 [INFO] Resposta cob: {"txid":"ac2bd7d3a8b04cba951046d9d82d31d8","revisao":0,"loc":{"id":1972278676,"location":"pix-qrcode.sicredi.com.br/qr/v2/76089312486f44e68a76973d4531b42c","tipoCob":"cob","criacao":"2026-04-08T18:56:15.609Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/76089312486f44e68a76973d4531b42c5204000053039865802BR5903PIX6006Cidade62070503***6304BB80","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003128960","calendario":{"criacao":"2026-04-08T18:56:15.627Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"199.27"},"location":"pix-qrcode.sicredi.com.br/qr/v2/76089312486f44e68a76973d4531b42c"}
+2026-04-08 15:56:15 [INFO] PIX gerado | NF=003128960 | txid=ac2bd7d3a8b04cba951046d9d82d31d8
+2026-04-08 15:56:15 [ERROR] Erro ao processar PIX | NF=003128960 | Implicit conversion from data type varchar to varbinary(max) is not allowed. Use the CONVERT function to run this query.
+2026-04-08 16:00:50 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-08 16:01:21 [INFO] === Requisição PIX recebida | NF=003128960 ===
+2026-04-08 16:01:21 [INFO] Conexão com banco de dados estabelecida.
+2026-04-08 16:01:21 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-08 16:01:21 [INFO] Gerando PIX (cob) | NF=003128960 | Valor=199.27
+2026-04-08 16:01:21 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"199.27","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003128960"}
+2026-04-08 16:01:22 [INFO] PIX cob criado | txid=54d49747d4e940bcbcbef9c3727fac35 | HTTP 201
+2026-04-08 16:01:22 [INFO] Resposta cob: {"txid":"54d49747d4e940bcbcbef9c3727fac35","revisao":0,"loc":{"id":1972298912,"location":"pix-qrcode.sicredi.com.br/qr/v2/95213dc686ab40dda32f1838f7130fb4","tipoCob":"cob","criacao":"2026-04-08T19:01:21.953Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/95213dc686ab40dda32f1838f7130fb45204000053039865802BR5903PIX6006Cidade62070503***6304F3A2","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003128960","calendario":{"criacao":"2026-04-08T19:01:21.954Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"199.27"},"location":"pix-qrcode.sicredi.com.br/qr/v2/95213dc686ab40dda32f1838f7130fb4"}
+2026-04-08 16:01:22 [INFO] PIX gerado | NF=003128960 | txid=54d49747d4e940bcbcbef9c3727fac35
+2026-04-08 16:01:22 [INFO] F71010 atualizado | NF=003128960 | txid=54d49747d4e940bcbcbef9c3727fac35
+2026-04-08 16:56:06 [INFO] === Requisição PIX recebida | NF=003129062 ===
+2026-04-08 16:57:01 [WARN] PIX bloqueado | NF=003129062 | NF 003129062 com status '1' na F71010 — esperado '5'.
+2026-04-08 16:57:01 [WARN] HTTP 422 → NF 003129062 com status '1' na F71010 — esperado '5'.
+2026-04-08 16:57:44 [INFO] === Requisição PIX recebida | NF=003129062 ===
+2026-04-08 16:57:44 [INFO] Gerando PIX (cob) | NF=003129062 | Valor=389.88
+2026-04-08 16:57:44 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"389.88","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003129062"}
+2026-04-08 16:57:44 [INFO] PIX cob criado | txid=2a7eeb37d94f496bad194c30d91607ee | HTTP 201
+2026-04-08 16:57:44 [INFO] Resposta cob: {"txid":"2a7eeb37d94f496bad194c30d91607ee","revisao":0,"loc":{"id":1972536758,"location":"pix-qrcode.sicredi.com.br/qr/v2/d2921902469b4432a03da8c04265e3d4","tipoCob":"cob","criacao":"2026-04-08T19:57:44.756Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/d2921902469b4432a03da8c04265e3d45204000053039865802BR5903PIX6006Cidade62070503***63042FA0","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003129062","calendario":{"criacao":"2026-04-08T19:57:44.778Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"389.88"},"location":"pix-qrcode.sicredi.com.br/qr/v2/d2921902469b4432a03da8c04265e3d4"}
+2026-04-08 16:57:44 [INFO] PIX gerado | NF=003129062 | txid=2a7eeb37d94f496bad194c30d91607ee
+2026-04-08 16:57:44 [INFO] F71010 atualizado | NF=003129062 | txid=2a7eeb37d94f496bad194c30d91607ee
