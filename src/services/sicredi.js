@@ -3,7 +3,7 @@ const fs     = require('fs');
 const path   = require('path');
 const logger = require('../logger');
 
-const PDFS_DIR = path.join(__dirname, '..', '..', 'pdfs');
+const PDFS_DIR = path.join(__dirname, '..', '..', 'PDFs - Boletos Sicredi');
 const {
   SICREDI_BASE_URL,
   SICREDI_X_API_KEY,
@@ -119,7 +119,7 @@ async function gerarPixSimples(token, dados) {
   return resultado;
 }
 
-async function gerarPdf(linhaDigitavel, nf, token, parcela) {
+async function gerarPdf(linhaDigitavel, nf, token, parcela, filial) {
   const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos/pdf?linhaDigitavel=${encodeURIComponent(linhaDigitavel)}`;
   try {
     const response = await axios.get(url, {
@@ -133,11 +133,11 @@ async function gerarPdf(linhaDigitavel, nf, token, parcela) {
       timeout: 30000,
     });
 
-    // Pasta: pdfs/{nf}/   Arquivo: {nf}BOL.pdf ou {nf}{parcela}BOL.pdf
-    const nfDir   = path.join(PDFS_DIR, nf);
-    if (!fs.existsSync(nfDir)) fs.mkdirSync(nfDir, { recursive: true });
-    const sufixo  = parcela ? `${parcela.toUpperCase()}BOL` : 'BOL';
-    const pdfPath = path.join(nfDir, `${nf}${sufixo}.pdf`);
+    // Pasta: PDFs - Boletos Sicredi/   Arquivo: {filial}{nf}{parcela}.pdf ou {filial}{nf}.pdf
+    if (!fs.existsSync(PDFS_DIR)) fs.mkdirSync(PDFS_DIR, { recursive: true });
+    const prefixo  = filial ? String(filial) : '';
+    const nomePdf  = parcela ? `${prefixo}${nf}${parcela.toUpperCase()}` : `${prefixo}${nf}`;
+    const pdfPath  = path.join(PDFS_DIR, `${nomePdf}.pdf`);
     fs.writeFileSync(pdfPath, Buffer.from(response.data));
     logger.info(`PDF salvo | NF=${nf} | Parcela=${parcela || '-'} | path=${pdfPath}`);
     return pdfPath;
