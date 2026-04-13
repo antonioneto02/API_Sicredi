@@ -3,16 +3,49 @@ const express = require('express');
 const http    = require('http');
 const { PORT, SICREDI_COOPERATIVA } = require('./config');
 const logger   = require('./logger');
-const { autenticar, gerarBoletoHibrido, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
+const { autenticar, gerarBoletoHibrido, gerarPdf, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
 const { autenticarPix, gerarBolecodePix, registrarWebhook, consultarWebhook, listarCobrancas } = require('./services/sicredi-pix');
 const { verificarElegibilidadePix, salvarPix, salvarBoleto } = require('./services/database');
 
+const { swaggerUi, swaggerDocument } = require('./swagger');
+
 const app = express();
 app.use(express.json());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 function erro(res, mensagem, status) {
   logger.warn(`HTTP ${status} → ${mensagem}`);
   return res.status(status).json({ erro: mensagem });
+}
+
+async function aplicarEncargosComRetry(nossoNumero, nf, tentativas = 6, intervaloMs = 10000) {
+  for (let i = 1; i <= tentativas; i++) {
+    await new Promise(r => setTimeout(r, intervaloMs));
+    try {
+      const token = await autenticar();
+      await alterarJuros(token, nossoNumero, 1.00);
+      logger.info(`Juros aplicado | NF=${nf} | nossoNumero=${nossoNumero}`);
+      return true;
+    } catch (err) {
+      logger.warn(`Juros PATCH tentativa ${i}/${tentativas} | NF=${nf} | ${err.message}`);
+    }
+  }
+  logger.error(`Juros não aplicado após ${tentativas} tentativas | NF=${nf}`);
+  return false;
+}
+
+async function gerarPdfComRetry(linhaDigitavel, nf, parcela, tentativas = 6, intervaloMs = 10000) {
+  for (let i = 1; i <= tentativas; i++) {
+    await new Promise(r => setTimeout(r, intervaloMs));
+    try {
+      const tokenPdf = await autenticar();
+      await gerarPdf(linhaDigitavel, nf, tokenPdf, parcela);
+      return;
+    } catch (err) {
+      logger.warn(`PDF tentativa ${i}/${tentativas} | NF=${nf} | Parcela=${parcela || '-'} | ${err.message}`);
+    }
+  }
+  logger.error(`PDF não gerado após ${tentativas} tentativas | NF=${nf} | Parcela=${parcela || '-'}`);
 }
 
 function agoraBRT() {
@@ -32,19 +65,27 @@ app.post('/bolecode', async (req, res) => {
     }
   }
 
-  const nf     = String(dados.nf).trim();
-  const filial = String(dados.filial || '').trim() || null;
-  logger.info(`=== Requisição boleto recebida | NF=${nf} | Filial=${filial} ===`);
+  const nf      = String(dados.nf).trim();
+  const parcela = dados.parcela ? String(dados.parcela).trim().toUpperCase() : null;
+  const filial  = String(dados.filial || '').trim() || null;
+  logger.info(`=== Requisição boleto recebida | NF=${nf} | Parcela=${parcela || '-'} | Filial=${filial} ===`);
 
   res.status(200).json({ status: 'recebido' });
 
   (async () => {
     try {
-      const token     = await autenticar();
+      const token    = await autenticar();
       const resultado = await gerarBoletoHibrido(token, dados);
-      logger.info(`Boleto gerado | NF=${nf} | nossoNumero=${resultado.nossoNumero}`);
+      logger.info(`Boleto gerado | NF=${nf} | Parcela=${parcela || '-'} | nossoNumero=${resultado.nossoNumero} | txid=${resultado.txid}`);
 
-      await salvarBoleto(nf, resultado.txid, resultado.qrCode, resultado.nossoNumero, resultado.codigoBarras || resultado.linhaDigitavel, resultado.cooperativa || SICREDI_COOPERATIVA);
+      await salvarBoleto(nf, resultado.txid, resultado.qrCode, resultado.nossoNumero, resultado.codigoBarras || resultado.linhaDigitavel, resultado.cooperativa || SICREDI_COOPERATIVA, filial);
+
+      // PDF primeiro (boleto com QR code), depois PATCH de juros (doc 7.8)
+      await gerarPdfComRetry(resultado.linhaDigitavel, nf, parcela);
+      const jurosOk = await aplicarEncargosComRetry(resultado.nossoNumero, nf);
+      if (!jurosOk) {
+        logger.error(`Juros não aplicado após todas as tentativas | NF=${nf} | nossoNumero=${resultado.nossoNumero}`);
+      }
     } catch (err) {
       logger.error(`Erro ao processar boleto | NF=${nf} | ${err.message}`);
     }
@@ -60,13 +101,14 @@ app.post('/pix', async (req, res) => {
     }
   }
 
-  const nf = String(dados.nf).trim();
-  logger.info(`=== Requisição PIX recebida | NF=${nf} ===`);
+  const nf     = String(dados.nf).trim();
+  const filial = String(dados.filial || '').trim() || null;
+  logger.info(`=== Requisição PIX recebida | NF=${nf} | Filial=${filial || '-'} ===`);
 
   try {
-    await verificarElegibilidadePix(nf);
+    await verificarElegibilidadePix(nf, filial);
   } catch (err) {
-    logger.warn(`PIX bloqueado | NF=${nf} | ${err.message}`);
+    logger.warn(`PIX bloqueado | NF=${nf} | Filial=${filial || '-'} | ${err.message}`);
     return erro(res, err.message, 422);
   }
 
@@ -76,9 +118,9 @@ app.post('/pix', async (req, res) => {
     try {
       const token     = await autenticarPix();
       const resultado = await gerarBolecodePix(token, dados);
-      logger.info(`PIX gerado | NF=${nf} | txid=${resultado.txid}`);
+      logger.info(`PIX gerado | NF=${nf} | Filial=${filial || '-'} | txid=${resultado.txid}`);
 
-      await salvarPix(nf, resultado.txid, resultado.pixCopiaECola);
+      await salvarPix(nf, resultado.txid, resultado.pixCopiaECola, filial);
     } catch (err) {
       logger.error(`Erro ao processar PIX | NF=${nf} | ${err.message}`);
     }

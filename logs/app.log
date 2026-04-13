@@ -298,3 +298,228 @@
 2026-04-08 16:57:44 [INFO] Resposta cob: {"txid":"2a7eeb37d94f496bad194c30d91607ee","revisao":0,"loc":{"id":1972536758,"location":"pix-qrcode.sicredi.com.br/qr/v2/d2921902469b4432a03da8c04265e3d4","tipoCob":"cob","criacao":"2026-04-08T19:57:44.756Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/d2921902469b4432a03da8c04265e3d45204000053039865802BR5903PIX6006Cidade62070503***63042FA0","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003129062","calendario":{"criacao":"2026-04-08T19:57:44.778Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"389.88"},"location":"pix-qrcode.sicredi.com.br/qr/v2/d2921902469b4432a03da8c04265e3d4"}
 2026-04-08 16:57:44 [INFO] PIX gerado | NF=003129062 | txid=2a7eeb37d94f496bad194c30d91607ee
 2026-04-08 16:57:44 [INFO] F71010 atualizado | NF=003129062 | txid=2a7eeb37d94f496bad194c30d91607ee
+2026-04-08 17:20:48 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 10:15:20 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 10:15:20 [INFO] Boletos liquidados consultados | data=08/04/2026 | total=0
+2026-04-09 10:15:31 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 10:15:31 [INFO] Boletos liquidados consultados | data=01/04/2026 | total=0
+2026-04-09 10:15:31 [INFO] Boletos liquidados consultados | data=02/04/2026 | total=0
+2026-04-09 10:15:31 [INFO] Boletos liquidados consultados | data=03/04/2026 | total=0
+2026-04-09 10:15:31 [INFO] Boletos liquidados consultados | data=04/04/2026 | total=0
+2026-04-09 10:15:31 [INFO] Boletos liquidados consultados | data=05/04/2026 | total=0
+2026-04-09 10:15:31 [INFO] Boletos liquidados consultados | data=06/04/2026 | total=0
+2026-04-09 10:15:32 [INFO] Boletos liquidados consultados | data=07/04/2026 | total=0
+2026-04-09 10:15:32 [INFO] Boletos liquidados consultados | data=08/04/2026 | total=0
+2026-04-09 10:15:32 [INFO] Liquidados por período 2026-04-01 → 2026-04-08 | total=0
+2026-04-09 10:16:30 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 10:16:30 [INFO] Boletos liquidados consultados | data=09/04/2026 | total=0
+2026-04-09 10:24:57 [INFO] === Requisição boleto recebida | NF=003130518 | Filial=010101 ===
+2026-04-09 10:25:58 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 10:25:58 [ERROR] Erro ao processar boleto | NF=003130518 | Validation failed for parameter 'de'. Invalid date.
+2026-04-09 11:23:47 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 11:35:33 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 11:38:58 [INFO] === Requisição boleto recebida | NF=003130518 | Filial=010101 ===
+2026-04-09 11:38:59 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 11:38:59 [INFO] Próximo dia útil após vencimento (2026-04-10): 2026-04-13
+2026-04-09 11:38:59 [INFO] Gerando boleto HÍBRIDO | NF=003130518 | Valor=19.8
+2026-04-09 11:38:59 [INFO] Sicredi → HTTP 201
+2026-04-09 11:38:59 [INFO] Resposta Sicredi boleto: {"txid":null,"qrCode":null,"linhaDigitavel":"74891160090000730730951462011027214120000001980","codigoBarras":"74892141200000019801160000007307305146201102","cooperativa":"0730","posto":"51","nossoNumero":"600000073"}
+2026-04-09 11:38:59 [INFO] Boleto gerado | NF=003130518 | nossoNumero=600000073
+2026-04-09 11:38:59 [INFO] Conexão com banco de dados estabelecida.
+2026-04-09 11:38:59 [ERROR] Erro ao processar boleto | NF=003130518 | Invalid object name 'F71010'.
+2026-04-09 11:52:57 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 11:53:42 [INFO] === Requisição boleto recebida | NF=003130518 | Filial=010101 ===
+2026-04-09 11:53:42 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 11:53:42 [INFO] Próximo dia útil após vencimento (2026-04-10): 2026-04-13
+2026-04-09 11:53:42 [INFO] Gerando boleto HÍBRIDO | NF=003130518 | Valor=19.8
+2026-04-09 11:53:42 [INFO] Payload boleto: {"codigoBeneficiario":"46201","dataVencimento":"2026-04-10","especieDocumento":"DUPLICATA_MERCANTIL_INDICACAO","tipoCobranca":"HIBRIDO","seuNumero":"003130518","valor":19.8,"pagador":{"cep":"82960010","cidade":"CURITIBA","documento":"81490690387","nome":"NERIAS L SOUSA","tipoPessoa":"PESSOA_FISICA","endereco":"RUA JORDANIA, 1074","uf":"PR"},"tipoJuros":"PERCENTUAL","tipoJurosPercentual":"MENSAL","juros":1,"dataInicioJuros":"2026-04-13","tipoMulta":"PERCENTUAL","multa":1,"dataInicioMulta":"2026-04-13"}
+2026-04-09 11:53:43 [INFO] Sicredi → HTTP 201
+2026-04-09 11:53:43 [INFO] Resposta Sicredi boleto: {"txid":null,"qrCode":null,"linhaDigitavel":"74891160090000810730251462011084814120000001980","codigoBarras":"74898141200000019801160000008107305146201108","cooperativa":"0730","posto":"51","nossoNumero":"600000081"}
+2026-04-09 11:53:43 [INFO] Boleto gerado | NF=003130518 | nossoNumero=600000081
+2026-04-09 11:53:43 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-09 11:53:43 [INFO] Gerando PIX (cob) | NF=003130518 | Valor=19.8
+2026-04-09 11:53:43 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"19.80","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518"}
+2026-04-09 11:53:43 [INFO] PIX cob criado | txid=27e9832dfca146be9e56bdb48f18e404 | HTTP 201
+2026-04-09 11:53:43 [INFO] Resposta cob: {"txid":"27e9832dfca146be9e56bdb48f18e404","revisao":0,"loc":{"id":1974593587,"location":"pix-qrcode.sicredi.com.br/qr/v2/ac41bc3012194a8dba6807f31ff23e9e","tipoCob":"cob","criacao":"2026-04-09T14:53:43.330Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/ac41bc3012194a8dba6807f31ff23e9e5204000053039865802BR5903PIX6006Cidade62070503***63043701","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518","calendario":{"criacao":"2026-04-09T14:53:43.355Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"19.80"},"location":"pix-qrcode.sicredi.com.br/qr/v2/ac41bc3012194a8dba6807f31ff23e9e"}
+2026-04-09 11:53:43 [INFO] PIX gerado | NF=003130518 | txid=27e9832dfca146be9e56bdb48f18e404
+2026-04-09 11:53:43 [INFO] Conectando ao banco | server=localhost | database=p11_prod | user=antonio.neto
+2026-04-09 11:53:43 [INFO] Banco de dados conectado: dw
+2026-04-09 11:53:43 [ERROR] Erro ao processar boleto | NF=003130518 | Invalid object name 'F71010'.
+2026-04-09 13:16:01 [INFO] === Requisição boleto recebida | NF=003130518 | Filial=010101 ===
+2026-04-09 13:16:07 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 13:16:07 [INFO] Próximo dia útil após vencimento (2026-04-10): 2026-04-13
+2026-04-09 13:16:07 [INFO] Gerando boleto HÍBRIDO | NF=003130518 | Valor=19.8
+2026-04-09 13:16:07 [INFO] Payload boleto: {"codigoBeneficiario":"46201","dataVencimento":"2026-04-10","especieDocumento":"DUPLICATA_MERCANTIL_INDICACAO","tipoCobranca":"HIBRIDO","seuNumero":"003130518","valor":19.8,"pagador":{"cep":"82960010","cidade":"CURITIBA","documento":"81490690387","nome":"NERIAS L SOUSA","tipoPessoa":"PESSOA_FISICA","endereco":"RUA JORDANIA, 1074","uf":"PR"},"tipoJuros":"PERCENTUAL","tipoJurosPercentual":"MENSAL","juros":1,"dataInicioJuros":"2026-04-13","tipoMulta":"PERCENTUAL","multa":1,"dataInicioMulta":"2026-04-13"}
+2026-04-09 13:16:08 [INFO] Sicredi → HTTP 201
+2026-04-09 13:16:08 [INFO] Resposta Sicredi boleto: {"txid":null,"qrCode":null,"linhaDigitavel":"74891160090000900730351462011076914120000001980","codigoBarras":"74899141200000019801160000009007305146201107","cooperativa":"0730","posto":"51","nossoNumero":"600000090"}
+2026-04-09 13:16:08 [INFO] Boleto gerado | NF=003130518 | nossoNumero=600000090
+2026-04-09 13:16:08 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-09 13:16:08 [INFO] Gerando PIX (cob) | NF=003130518 | Valor=19.8
+2026-04-09 13:16:08 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"19.80","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518"}
+2026-04-09 13:16:08 [INFO] PIX cob criado | txid=ba12e26ecd3249f181904ff99c2331dd | HTTP 201
+2026-04-09 13:16:08 [INFO] Resposta cob: {"txid":"ba12e26ecd3249f181904ff99c2331dd","revisao":0,"loc":{"id":1974869670,"location":"pix-qrcode.sicredi.com.br/qr/v2/48314bd3898d46c1a3475b45b22cf688","tipoCob":"cob","criacao":"2026-04-09T16:16:08.345Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/48314bd3898d46c1a3475b45b22cf6885204000053039865802BR5903PIX6006Cidade62070503***630443B9","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518","calendario":{"criacao":"2026-04-09T16:16:08.364Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"19.80"},"location":"pix-qrcode.sicredi.com.br/qr/v2/48314bd3898d46c1a3475b45b22cf688"}
+2026-04-09 13:16:08 [INFO] PIX gerado | NF=003130518 | txid=ba12e26ecd3249f181904ff99c2331dd
+2026-04-09 13:16:08 [ERROR] Erro ao processar boleto | NF=003130518 | Invalid object name 'F71010'.
+2026-04-09 13:16:42 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 13:17:18 [INFO] === Requisição boleto recebida | NF=003130518 | Filial=010101 ===
+2026-04-09 13:17:18 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-09 13:17:18 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 13:17:18 [INFO] Gerando PIX (cob) | NF=003130518 | Valor=19.8
+2026-04-09 13:17:18 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"19.80","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518"}
+2026-04-09 13:17:18 [INFO] Próximo dia útil após vencimento (2026-04-10): 2026-04-13
+2026-04-09 13:17:18 [INFO] Gerando boleto HÍBRIDO | NF=003130518 | Valor=19.8
+2026-04-09 13:17:18 [INFO] Payload boleto: {"codigoBeneficiario":"46201","dataVencimento":"2026-04-10","especieDocumento":"DUPLICATA_MERCANTIL_INDICACAO","tipoCobranca":"HIBRIDO","seuNumero":"003130518","valor":19.8,"pagador":{"cep":"82960010","cidade":"CURITIBA","documento":"81490690387","nome":"NERIAS L SOUSA","tipoPessoa":"PESSOA_FISICA","endereco":"RUA JORDANIA, 1074","uf":"PR"},"tipoJuros":"PERCENTUAL","tipoJurosPercentual":"MENSAL","juros":1,"dataInicioJuros":"2026-04-13","tipoMulta":"PERCENTUAL","multa":1,"dataInicioMulta":"2026-04-13"}
+2026-04-09 13:17:18 [INFO] PIX cob criado | txid=2b16117a828d40679da14e576fb40e51 | HTTP 201
+2026-04-09 13:17:18 [INFO] Resposta cob: {"txid":"2b16117a828d40679da14e576fb40e51","revisao":0,"loc":{"id":1974872899,"location":"pix-qrcode.sicredi.com.br/qr/v2/017b1a39981d43f0a9eedad8b6d05c61","tipoCob":"cob","criacao":"2026-04-09T16:17:18.807Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/017b1a39981d43f0a9eedad8b6d05c615204000053039865802BR5903PIX6006Cidade62070503***6304FED9","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518","calendario":{"criacao":"2026-04-09T16:17:18.809Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"19.80"},"location":"pix-qrcode.sicredi.com.br/qr/v2/017b1a39981d43f0a9eedad8b6d05c61"}
+2026-04-09 13:17:19 [INFO] Sicredi → HTTP 201
+2026-04-09 13:17:19 [INFO] Resposta Sicredi boleto: {"txid":null,"qrCode":null,"linhaDigitavel":"74891160090001030730451462011050214120000001980","codigoBarras":"74892141200000019801160000010307305146201105","cooperativa":"0730","posto":"51","nossoNumero":"600000103"}
+2026-04-09 13:17:19 [INFO] Boleto gerado | NF=003130518 | nossoNumero=600000103
+2026-04-09 13:17:19 [INFO] PIX gerado | NF=003130518 | txid=2b16117a828d40679da14e576fb40e51
+2026-04-09 13:17:19 [ERROR] Erro ao gerar PDF → HTTP 422 | NF=003130518 | {"timestamp":"2026-04-09T16:17:19.396+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Boleto não localizado. Verifique os dados informados ou entre em contato com o Beneficiário."}
+2026-04-09 13:17:19 [ERROR] Erro ao processar boleto | NF=003130518 | Erro ao gerar PDF: HTTP 422 | {"timestamp":"2026-04-09T16:17:19.396+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Boleto não localizado. Verifique os dados informados ou entre em contato com o Beneficiário."}
+2026-04-09 13:20:35 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 13:26:25 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 13:27:08 [INFO] === Requisição boleto recebida | NF=003130518 | Filial=010101 ===
+2026-04-09 13:27:08 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-09 13:27:08 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 13:27:08 [INFO] Gerando PIX (cob) | NF=003130518 | Valor=19.8
+2026-04-09 13:27:08 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"19.80","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518"}
+2026-04-09 13:27:09 [INFO] Próximo dia útil após vencimento (2026-04-10): 2026-04-13
+2026-04-09 13:27:09 [INFO] Gerando boleto HÍBRIDO | NF=003130518 | Valor=19.8
+2026-04-09 13:27:09 [INFO] Payload boleto: {"codigoBeneficiario":"46201","dataVencimento":"2026-04-10","especieDocumento":"DUPLICATA_MERCANTIL_INDICACAO","tipoCobranca":"HIBRIDO","seuNumero":"003130518","valor":19.8,"pagador":{"cep":"82960010","cidade":"CURITIBA","documento":"81490690387","nome":"NERIAS L SOUSA","tipoPessoa":"PESSOA_FISICA","endereco":"RUA JORDANIA, 1074","uf":"PR"},"tipoJuros":"PERCENTUAL","tipoJurosPercentual":"MENSAL","juros":1,"dataInicioJuros":"2026-04-13","tipoMulta":"PERCENTUAL","multa":1,"dataInicioMulta":"2026-04-13"}
+2026-04-09 13:27:09 [INFO] PIX cob criado | txid=505cc18a74e542a899406ca638ef134c | HTTP 201
+2026-04-09 13:27:09 [INFO] Resposta cob: {"txid":"505cc18a74e542a899406ca638ef134c","revisao":0,"loc":{"id":1974903238,"location":"pix-qrcode.sicredi.com.br/qr/v2/7c11b5fbb11a4c96816f81cb983231c9","tipoCob":"cob","criacao":"2026-04-09T16:27:09.014Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/7c11b5fbb11a4c96816f81cb983231c95204000053039865802BR5903PIX6006Cidade62070503***63049B1E","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130518","calendario":{"criacao":"2026-04-09T16:27:09.035Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"19.80"},"location":"pix-qrcode.sicredi.com.br/qr/v2/7c11b5fbb11a4c96816f81cb983231c9"}
+2026-04-09 13:27:09 [INFO] Sicredi → HTTP 201
+2026-04-09 13:27:09 [INFO] Resposta Sicredi boleto: {"txid":null,"qrCode":null,"linhaDigitavel":"74891160090001110730751462011001814120000001980","codigoBarras":"74898141200000019801160000011107305146201100","cooperativa":"0730","posto":"51","nossoNumero":"600000111"}
+2026-04-09 13:27:09 [INFO] Boleto gerado | NF=003130518 | nossoNumero=600000111
+2026-04-09 13:27:09 [INFO] PIX gerado | NF=003130518 | txid=505cc18a74e542a899406ca638ef134c
+2026-04-09 13:27:09 [INFO] Conectando ao banco | server=localhost | database=p11_prod | user=antonio.neto
+2026-04-09 13:27:09 [INFO] Banco de dados conectado: p11_prod
+2026-04-09 13:27:09 [INFO] F71010 atualizado | NF=003130518
+2026-04-09 13:27:09 [INFO] SE1010 atualizado | NF=003130518 | nossoNumero=600000111
+2026-04-09 13:27:12 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 13:27:12 [ERROR] Erro ao gerar PDF → HTTP 422 | NF=003130518 | {"timestamp":"2026-04-09T16:27:12.921+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Boleto não localizado. Verifique os dados informados ou entre em contato com o Beneficiário."}
+2026-04-09 13:27:12 [WARN] PDF não gerado | NF=003130518 | Erro ao gerar PDF: HTTP 422 | {"timestamp":"2026-04-09T16:27:12.921+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Boleto não localizado. Verifique os dados informados ou entre em contato com o Beneficiário."}
+2026-04-09 13:31:12 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 13:43:07 [INFO] === Requisição boleto recebida | NF=003130574 | Filial=010101 ===
+2026-04-09 13:43:11 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-09 13:43:11 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 13:43:11 [INFO] Gerando PIX (cob) | NF=003130574 | Valor=10.6
+2026-04-09 13:43:11 [INFO] Payload cob: {"calendario":{"expiracao":15000000},"valor":{"original":"10.60","modalidadeAlteracao":0},"chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130574"}
+2026-04-09 13:43:11 [INFO] Próximo dia útil após vencimento (2026-04-10): 2026-04-13
+2026-04-09 13:43:11 [INFO] Gerando boleto HÍBRIDO | NF=003130574 | Valor=10.6
+2026-04-09 13:43:11 [INFO] Payload boleto: {"codigoBeneficiario":"46201","dataVencimento":"2026-04-10","especieDocumento":"DUPLICATA_MERCANTIL_INDICACAO","tipoCobranca":"HIBRIDO","seuNumero":"003130574","valor":10.6,"pagador":{"cep":"82960010","cidade":"CURITIBA","documento":"81490690387","nome":"NERIAS L SOUSA","tipoPessoa":"PESSOA_FISICA","endereco":"RUA JORDANIA, 1074","uf":"PR"},"tipoJuros":"PERCENTUAL","tipoJurosPercentual":"MENSAL","juros":1,"dataInicioJuros":"2026-04-13","tipoMulta":"PERCENTUAL","multa":1,"dataInicioMulta":"2026-04-13"}
+2026-04-09 13:43:11 [INFO] PIX cob criado | txid=28129c08448a4c00a49cb6f4ef0d6dcc | HTTP 201
+2026-04-09 13:43:11 [INFO] Resposta cob: {"txid":"28129c08448a4c00a49cb6f4ef0d6dcc","revisao":0,"loc":{"id":1974952507,"location":"pix-qrcode.sicredi.com.br/qr/v2/42306c9cd81e4879a423c78719fc4fdb","tipoCob":"cob","criacao":"2026-04-09T16:43:11.323Z"},"status":"ATIVA","pixCopiaECola":"00020126860014br.gov.bcb.pix2564pix-qrcode.sicredi.com.br/qr/v2/42306c9cd81e4879a423c78719fc4fdb5204000053039865802BR5903PIX6006Cidade62070503***630424F8","chave":"financeiro@cini.com.br","solicitacaoPagador":"NF 003130574","calendario":{"criacao":"2026-04-09T16:43:11.344Z","expiracao":15000000},"valor":{"modalidadeAlteracao":0,"original":"10.60"},"location":"pix-qrcode.sicredi.com.br/qr/v2/42306c9cd81e4879a423c78719fc4fdb"}
+2026-04-09 13:43:11 [INFO] Sicredi → HTTP 201
+2026-04-09 13:43:11 [INFO] Resposta Sicredi boleto: {"txid":null,"qrCode":null,"linhaDigitavel":"74891160090001200730851462011001514120000001060","codigoBarras":"74895141200000010601160000012007305146201100","cooperativa":"0730","posto":"51","nossoNumero":"600000120"}
+2026-04-09 13:43:11 [INFO] Boleto gerado | NF=003130574 | nossoNumero=600000120
+2026-04-09 13:43:11 [INFO] PIX gerado | NF=003130574 | txid=28129c08448a4c00a49cb6f4ef0d6dcc
+2026-04-09 13:43:11 [INFO] Conectando ao banco | server=localhost | database=p11_prod | user=antonio.neto
+2026-04-09 13:43:11 [INFO] Banco de dados conectado: p11_prod
+2026-04-09 13:43:11 [INFO] F71010 atualizado | NF=003130574
+2026-04-09 13:43:12 [INFO] SE1010 atualizado | NF=003130574 | nossoNumero=600000120
+2026-04-09 13:43:22 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 13:43:22 [INFO] PDF salvo | NF=003130574 | path=E:\Projetos\API_Sicredi\pdfs\003130574.pdf
+2026-04-09 14:00:05 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 14:07:45 [INFO] === Requisição boleto recebida | NF=003130518 | Filial=010101 ===
+2026-04-09 14:07:45 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 14:07:45 [INFO] Gerando boleto HÍBRIDO | NF=003130518 | Valor=19.8
+2026-04-09 14:07:45 [INFO] Payload boleto: {"codigoBeneficiario":"46201","dataVencimento":"2026-04-10","especieDocumento":"DUPLICATA_MERCANTIL_INDICACAO","tipoCobranca":"HIBRIDO","seuNumero":"003130518","valor":19.8,"pagador":{"cep":"82960010","cidade":"CURITIBA","documento":"81490690387","nome":"NERIAS L SOUSA","tipoPessoa":"PESSOA_FISICA","endereco":"RUA JORDANIA, 1074","uf":"PR"},"validadeAposVencimento":30,"tipoJuros":"PERCENTUAL","tipoJurosPercentual":"MENSAL","juros":1,"tipoMulta":"PERCENTUAL","multa":1}
+2026-04-09 14:07:46 [INFO] Sicredi → HTTP 201
+2026-04-09 14:07:46 [INFO] Resposta Sicredi boleto: {"txid":"f318abdc08604c7eb1b30f4dcf476078","qrCode":"00020126910014br.gov.bcb.pix2569pix-qrcode.sicredi.com.br/qr/v2/cobv/4d50125f9fb74ac5a294b3fde3ca296f5204000053039865802BR5903PIX6006Cidade62070503***6304D496","linhaDigitavel":"74891160090001380730051462011019914120000001980","codigoBarras":"74899141200000019801160000013807305146201101","cooperativa":"0730","posto":"51","nossoNumero":"600000138"}
+2026-04-09 14:07:46 [INFO] Boleto gerado | NF=003130518 | nossoNumero=600000138 | txid=f318abdc08604c7eb1b30f4dcf476078
+2026-04-09 14:07:46 [INFO] Conectando ao banco | server=localhost | database=p11_prod | user=antonio.neto
+2026-04-09 14:07:46 [INFO] Banco de dados conectado: p11_prod
+2026-04-09 14:07:46 [INFO] F71010 atualizado | NF=003130518
+2026-04-09 14:07:46 [INFO] SE1010 atualizado | NF=003130518 | nossoNumero=600000138
+2026-04-09 14:07:48 [INFO] === Requisição boleto recebida | NF=003130574 | Filial=010101 ===
+2026-04-09 14:07:48 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 14:07:48 [INFO] Gerando boleto HÍBRIDO | NF=003130574 | Valor=10.6
+2026-04-09 14:07:48 [INFO] Payload boleto: {"codigoBeneficiario":"46201","dataVencimento":"2026-04-10","especieDocumento":"DUPLICATA_MERCANTIL_INDICACAO","tipoCobranca":"HIBRIDO","seuNumero":"003130574","valor":10.6,"pagador":{"cep":"82960010","cidade":"CURITIBA","documento":"81490690387","nome":"NERIAS L SOUSA","tipoPessoa":"PESSOA_FISICA","endereco":"RUA JORDANIA, 1074","uf":"PR"},"validadeAposVencimento":30,"tipoJuros":"PERCENTUAL","tipoJurosPercentual":"MENSAL","juros":1,"tipoMulta":"PERCENTUAL","multa":1}
+2026-04-09 14:07:49 [INFO] Sicredi → HTTP 201
+2026-04-09 14:07:49 [INFO] Resposta Sicredi boleto: {"txid":"1ba931df7ab84299bc9a5a66312e2f6e","qrCode":"00020126910014br.gov.bcb.pix2569pix-qrcode.sicredi.com.br/qr/v2/cobv/4659a9a6c9954e4d86eefa55a796a1905204000053039865802BR5903PIX6006Cidade62070503***6304545A","linhaDigitavel":"74891160090001460730351462011076214120000001060","codigoBarras":"74892141200000010601160000014607305146201107","cooperativa":"0730","posto":"51","nossoNumero":"600000146"}
+2026-04-09 14:07:49 [INFO] Boleto gerado | NF=003130574 | nossoNumero=600000146 | txid=1ba931df7ab84299bc9a5a66312e2f6e
+2026-04-09 14:07:49 [INFO] F71010 atualizado | NF=003130574
+2026-04-09 14:07:49 [INFO] SE1010 atualizado | NF=003130574 | nossoNumero=600000146
+2026-04-09 14:07:56 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 14:07:57 [INFO] PDF salvo | NF=003130518 | path=E:\Projetos\API_Sicredi\pdfs\003130518.pdf
+2026-04-09 14:07:59 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 14:07:59 [INFO] PDF salvo | NF=003130574 | path=E:\Projetos\API_Sicredi\pdfs\003130574.pdf
+2026-04-09 15:01:05 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 15:01:05 [INFO] Boletos liquidados consultados | data=09/04/2026 | total=0
+2026-04-09 15:05:34 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 16:07:07 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-09 17:38:59 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 17:38:59 [INFO] Boletos liquidados consultados | data=09/04/2026 | total=0
+2026-04-09 18:19:59 [INFO] Token Sicredi obtido com sucesso.
+2026-04-09 18:19:59 [INFO] Boletos liquidados consultados | data=09/04/2026 | total=0
+2026-04-10 08:52:22 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 08:52:22 [INFO] Boletos liquidados consultados | data=09/04/2026 | total=0
+2026-04-10 08:55:07 [INFO] Token PIX Sicredi obtido com sucesso.
+2026-04-10 08:55:07 [INFO] Listando cobranças PIX | inicio=2026-04-09T03:00:00.000Z | fim=2026-04-10T02:59:59.000Z | status=CONCLUIDA
+2026-04-10 08:55:08 [INFO] Cobranças listadas | total=0
+2026-04-10 08:55:45 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 08:55:45 [INFO] Francesinha consultada | data=09/04/2026 | total=0
+2026-04-10 08:56:06 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 08:56:06 [INFO] Liquidados por período 2026-04-01 → 2026-04-010 | total=0
+2026-04-10 08:56:27 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 08:56:27 [ERROR] Falha ao consultar boletos cadastrados → HTTP 404 | {"timestamp":"2026-04-10T11:56:27.760+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-10 08:56:27 [ERROR] Erro ao consultar boletos cadastrados: HTTP 404 — {"timestamp":"2026-04-10T11:56:27.760+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-10 08:56:27 [WARN] HTTP 502 → HTTP 404 — {"timestamp":"2026-04-10T11:56:27.760+00:00","error":"NOT_FOUND","code":"404","message":"Título não encontrado."}
+2026-04-10 09:18:45 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:18:45 [INFO] Liquidados por período 2026-04-01 → 2026-04-010 | total=0
+2026-04-10 09:19:02 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:19:02 [INFO] Boletos liquidados consultados | data=01/04/2026 | total=0
+2026-04-10 09:19:02 [INFO] Boletos liquidados consultados | data=02/04/2026 | total=0
+2026-04-10 09:19:02 [INFO] Boletos liquidados consultados | data=03/04/2026 | total=0
+2026-04-10 09:19:02 [INFO] Boletos liquidados consultados | data=04/04/2026 | total=0
+2026-04-10 09:19:02 [INFO] Boletos liquidados consultados | data=05/04/2026 | total=0
+2026-04-10 09:19:03 [INFO] Boletos liquidados consultados | data=06/04/2026 | total=0
+2026-04-10 09:19:03 [INFO] Boletos liquidados consultados | data=07/04/2026 | total=0
+2026-04-10 09:19:03 [INFO] Boletos liquidados consultados | data=08/04/2026 | total=0
+2026-04-10 09:19:03 [INFO] Boletos liquidados consultados | data=09/04/2026 | total=0
+2026-04-10 09:19:03 [INFO] Boletos liquidados consultados | data=10/04/2026 | total=0
+2026-04-10 09:19:03 [INFO] Liquidados por período 2026-04-01 → 2026-04-10 | total=0
+2026-04-10 09:41:24 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:41:24 [INFO] Francesinha consultada | data=10/04/2026 | total=0
+2026-04-10 09:41:58 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:41:58 [INFO] Francesinha consultada | data=10/04/2026 | total=0
+2026-04-10 09:42:04 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:42:04 [INFO] Francesinha consultada | data=09/04/2026 | total=0
+2026-04-10 09:42:36 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:42:37 [ERROR] Falha ao consultar francesinha → HTTP 400 | {"timestamp":"2026-04-10T12:42:37.015+00:00","error":"BAD_REQUEST","code":"400","message":"Erro:Página inválida. Máximo permitido: 999"}
+2026-04-10 09:42:37 [ERROR] Erro ao consultar francesinha: HTTP 400 — {"timestamp":"2026-04-10T12:42:37.015+00:00","error":"BAD_REQUEST","code":"400","message":"Erro:Página inválida. Máximo permitido: 999"}
+2026-04-10 09:42:37 [WARN] HTTP 502 → HTTP 400 — {"timestamp":"2026-04-10T12:42:37.015+00:00","error":"BAD_REQUEST","code":"400","message":"Erro:Página inválida. Máximo permitido: 999"}
+2026-04-10 09:42:45 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:42:45 [INFO] Francesinha consultada | data=09/04/2026 | total=0
+2026-04-10 09:43:45 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:43:45 [INFO] Francesinha consultada | data=09/04/2026 | total=0
+2026-04-10 09:43:54 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:43:54 [INFO] Francesinha consultada | data=09/04/2026 | total=0
+2026-04-10 09:44:07 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:44:07 [INFO] Francesinha consultada | data=09/04/2026 | total=0
+2026-04-10 09:45:48 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:45:48 [INFO] Francesinha consultada | data=09/04/2026 | total=0
+2026-04-10 09:45:55 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:45:55 [INFO] Francesinha consultada | data=08/04/2026 | total=0
+2026-04-10 09:46:00 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:46:00 [INFO] Francesinha consultada | data=10/04/2026 | total=0
+2026-04-10 09:48:16 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:48:16 [INFO] Francesinha consultada | data=09/04/2026 | total=1
+2026-04-10 09:48:33 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:48:33 [INFO] Francesinha consultada | data=10/04/2026 | total=1
+2026-04-10 09:48:41 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:48:41 [INFO] Francesinha consultada | data=09/04/2026 | total=1
+2026-04-10 09:49:16 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 09:49:16 [INFO] Francesinha consultada | data=10/04/2026 | total=1
+2026-04-10 12:34:06 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-10 13:28:41 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-10 13:31:10 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 13:31:11 [INFO] Francesinha consultada | data=10/04/2026 | total=1
+2026-04-10 15:13:38 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 15:13:38 [INFO] Francesinha consultada | data=10/04/2026 | total=1
+2026-04-10 15:29:19 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 15:29:19 [INFO] Francesinha consultada | data=10/04/2026 | total=1
+2026-04-10 15:47:05 [INFO] Token Sicredi obtido com sucesso.
+2026-04-10 15:47:05 [INFO] Francesinha consultada | data=10/04/2026 | total=1

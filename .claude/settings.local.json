@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdftotext \"e:\\\\Projetos\\\\API_Sicredi\\\\Manual da API da Cobrança - 3.9 1.pdf\" -)"
+    ]
+  }
+}
