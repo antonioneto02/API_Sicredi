@@ -3,7 +3,7 @@ const express = require('express');
 const http    = require('http');
 const { PORT, SICREDI_COOPERATIVA } = require('./config');
 const logger   = require('./logger');
-const { autenticar, gerarBoletoHibrido, gerarPdf, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
+const { autenticar, gerarBoletoHibrido, gerarPdf, gerarPdfParaPasta, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
 const { autenticarPix, gerarBolecodePix, registrarWebhook, consultarWebhook, listarCobrancas } = require('./services/sicredi-pix');
 const { verificarElegibilidadePix, salvarPix, salvarBoleto } = require('./services/database');
 
@@ -170,6 +170,22 @@ app.get('/boleto/cadastrados', async (req, res) => {
     return res.status(200).json(resultado);
   } catch (err) {
     logger.error(`Erro ao consultar boletos cadastrados: ${err.message}`);
+    return erro(res, err.message, 502);
+  }
+});
+
+// Rota de teste: gera PDF do boleto a partir da linha digitável e salva em E:\\TOTVS\\Boletos
+app.get('/boleto/teste-gerar', async (req, res) => {
+  const linha = String(req.query.linha || '74891160090001460730351462011076214120000001060').trim();
+  const outputDir = 'E:\\TOTVS\\Boletos';
+  const nomeArquivo = `boleto-teste-${Date.now()}.pdf`;
+
+  try {
+    const token = await autenticar();
+    const caminho = await gerarPdfParaPasta(linha, token, outputDir, nomeArquivo);
+    return res.status(200).json({ status: 'salvo', path: caminho });
+  } catch (err) {
+    logger.error(`Erro gerar boleto teste: ${err.message}`);
     return erro(res, err.message, 502);
   }
 });

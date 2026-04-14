@@ -153,6 +153,39 @@ async function gerarPdf(linhaDigitavel, nf, token, parcela, filial) {
   }
 }
 
+async function gerarPdfParaPasta(linhaDigitavel, token, outputDir, nomeArquivo) {
+  const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos/pdf?linhaDigitavel=${encodeURIComponent(linhaDigitavel)}`;
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'x-api-key':     SICREDI_X_API_KEY,
+        'cooperativa':   SICREDI_COOPERATIVA,
+        'posto':         SICREDI_POSTO,
+      },
+      responseType: 'arraybuffer',
+      timeout: 30000,
+    });
+
+    if (!outputDir) throw new Error('outputDir é obrigatório');
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+    const safeName = nomeArquivo ? String(nomeArquivo) : `${linhaDigitavel}.pdf`;
+    const pdfPath = path.join(outputDir, safeName);
+    fs.writeFileSync(pdfPath, Buffer.from(response.data));
+    logger.info(`PDF salvo para teste | linha=${linhaDigitavel} | path=${pdfPath}`);
+    return pdfPath;
+  } catch (err) {
+    const status = err.response ? err.response.status : 'N/A';
+    let detalhe = err.message;
+    if (err.response?.data) {
+      try { detalhe = Buffer.from(err.response.data).toString('utf8'); }
+      catch (_) { detalhe = JSON.stringify(err.response.data); }
+    }
+    logger.error(`Erro ao gerar PDF para pasta → HTTP ${status} | linha=${linhaDigitavel} | ${detalhe}`);
+    throw new Error(`Erro ao gerar PDF para pasta: HTTP ${status} | ${detalhe}`);
+  }
+}
+
 // PATCH /boletos/{nossoNumero}/juros — body aceita apenas valorOuPercentual (conforme doc 7.8)
 async function alterarJuros(token, nossoNumero, valorOuPercentual) {
   const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos/${nossoNumero}/juros`;
@@ -356,4 +389,4 @@ async function alterarWebhookBoleto(token, idContrato, webhookUrl) {
   }
 }
 
-module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto };
+module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, gerarPdfParaPasta, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto };
