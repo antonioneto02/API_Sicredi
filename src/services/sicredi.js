@@ -3,7 +3,9 @@ const fs     = require('fs');
 const path   = require('path');
 const logger = require('../logger');
 
-const PDFS_DIR = path.join(__dirname, '..', '..', 'PDFs - Boletos Sicredi');
+// Diretório padrão para salvar PDFs. Pode ser sobrescrito definindo a variável de
+// ambiente `PDF_OUTPUT_DIR`. Por solicitação de testes, padrão é E:\\TOTVS\\Boletos.
+const PDFS_DIR = process.env.PDF_OUTPUT_DIR ? path.resolve(process.env.PDF_OUTPUT_DIR) : path.resolve('E:\\TOTVS\\Boletos');
 const {
   SICREDI_BASE_URL,
   SICREDI_X_API_KEY,

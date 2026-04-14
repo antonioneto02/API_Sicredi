@@ -527,3 +527,7 @@
 2026-04-13 12:43:14 [INFO] Token Sicredi obtido com sucesso.
 2026-04-13 12:43:14 [INFO] Francesinha consultada | data=10/04/2026 | total=1
 2026-04-14 15:14:53 [INFO] Sicredi API rodando em http://localhost:3012
+2026-04-14 15:19:35 [INFO] Token Sicredi obtido com sucesso.
+2026-04-14 15:19:35 [ERROR] Erro ao gerar PDF para pasta → HTTP 422 | linha=74891160090001460730351462011076214120000001060 | {"timestamp":"2026-04-14T18:19:35.832+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Impressão de título não disponível.Título já liquidado ou baixado."}
+2026-04-14 15:19:35 [ERROR] Erro gerar boleto teste: Erro ao gerar PDF para pasta: HTTP 422 | {"timestamp":"2026-04-14T18:19:35.832+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Impressão de título não disponível.Título já liquidado ou baixado."}
+2026-04-14 15:19:35 [WARN] HTTP 502 → Erro ao gerar PDF para pasta: HTTP 422 | {"timestamp":"2026-04-14T18:19:35.832+00:00","error":"UNPROCESSABLE_ENTITY","code":"422","message":" Impressão de título não disponível.Título já liquidado ou baixado."}
