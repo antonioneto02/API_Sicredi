@@ -18,7 +18,7 @@ function erro(res, mensagem, status) {
   return res.status(status).json({ erro: mensagem });
 }
 
-async function aplicarEncargosComRetry(nossoNumero, nf, tentativas = 6, intervaloMs = 10000) {
+async function aplicarEncargosComRetry(nossoNumero, nf, tentativas = 6, intervaloMs = 60000) {
   for (let i = 1; i <= tentativas; i++) {
     await new Promise(r => setTimeout(r, intervaloMs));
     try {
@@ -69,31 +69,39 @@ app.post('/bolecode', async (req, res) => {
   const parcela = dados.parcela ? String(dados.parcela).trim().toUpperCase() : null;
   const filial  = String(dados.filial || '').trim() || null;
   logger.info(`=== Requisição boleto recebida | NF=${nf} | Parcela=${parcela || '-'} | Filial=${filial} ===`);
+  logger.info(`[POST /bolecode] Body recebido: ${JSON.stringify(dados)}`);
 
   res.status(200).json({ status: 'recebido' });
 
   (async () => {
     try {
+      logger.info(`[boleto async] Iniciando processamento | NF=${nf} | Parcela=${parcela || '-'}`);
       const token    = await autenticar();
       const dataInicioJuros = await buscarProximoDiaUtil(dados.vencto);
+      logger.info(`[boleto async] dataInicioJuros=${dataInicioJuros} | NF=${nf}`);
       const resultado = await gerarBoletoHibrido(token, { ...dados, dataInicioJuros });
-      logger.info(`Boleto gerado | NF=${nf} | Parcela=${parcela || '-'} | nossoNumero=${resultado.nossoNumero} | txid=${resultado.txid}`);
+      logger.info(`[boleto async] Boleto gerado | NF=${nf} | Parcela=${parcela || '-'} | nossoNumero=${resultado.nossoNumero} | txid=${resultado.txid} | linhaDigitavel=${resultado.linhaDigitavel}`);
 
+      logger.info(`[boleto async] Salvando no banco | NF=${nf} | txid=${resultado.txid} | nossoNumero=${resultado.nossoNumero}`);
       await salvarBoleto(nf, resultado.txid, resultado.qrCode, resultado.nossoNumero, resultado.codigoBarras || resultado.linhaDigitavel, resultado.cooperativa || SICREDI_COOPERATIVA, filial);
+      logger.info(`[boleto async] Banco salvo | NF=${nf}`);
+
       await gerarPdfComRetry(resultado.linhaDigitavel, nf, parcela, filial);
       const jurosOk = await aplicarEncargosComRetry(resultado.nossoNumero, nf);
       if (!jurosOk) {
-        logger.error(`Juros não aplicado após todas as tentativas | NF=${nf} | nossoNumero=${resultado.nossoNumero}`);
+        logger.error(`[boleto async] Juros não aplicado após todas as tentativas | NF=${nf} | nossoNumero=${resultado.nossoNumero}`);
       }
+      logger.info(`[boleto async] Processamento concluído | NF=${nf}`);
     } catch (err) {
-      logger.error(`Erro ao processar boleto | NF=${nf} | ${err.message}`);
+      logger.error(`[boleto async] Erro ao processar boleto | NF=${nf} | ${err.message}`);
+      logger.error(`[boleto async] Stack: ${err.stack}`);
     }
   })();
 });
 
 app.post('/pix', async (req, res) => {
   const dados = req.body || {};
-  const camposObrigatorios = ['nf', 'valor'];
+  const camposObrigatorios = ['nf', 'valor', 'filial'];
   for (const campo of camposObrigatorios) {
     if (dados[campo] === undefined || dados[campo] === null || dados[campo] === '') {
       return erro(res, `Campo '${campo}' é obrigatório.`, 400);
@@ -102,7 +110,8 @@ app.post('/pix', async (req, res) => {
 
   const nf     = String(dados.nf).trim();
   const filial = String(dados.filial || '').trim() || null;
-  logger.info(`=== Requisição PIX recebida | NF=${nf} | Filial=${filial || '-'} ===`);
+  logger.info(`=== Requisição PIX recebida | NF=${nf} | Filial=${filial || '-'} | valor=${dados.valor} ===`);
+  logger.info(`[POST /pix] Body recebido: ${JSON.stringify(dados)}`);
 
   try {
     await verificarElegibilidadePix(nf, filial);
@@ -115,24 +124,31 @@ app.post('/pix', async (req, res) => {
 
   (async () => {
     try {
+      logger.info(`[pix async] Iniciando processamento | NF=${nf} | Filial=${filial || '-'}`);
       const token     = await autenticarPix();
       const resultado = await gerarBolecodePix(token, dados);
-      logger.info(`PIX gerado | NF=${nf} | Filial=${filial || '-'} | txid=${resultado.txid}`);
+      logger.info(`[pix async] PIX gerado | NF=${nf} | Filial=${filial || '-'} | txid=${resultado.txid} | pixCopiaECola.length=${(resultado.pixCopiaECola || '').length}`);
 
+      logger.info(`[pix async] Salvando no banco | NF=${nf} | txid=${resultado.txid}`);
       await salvarPix(nf, resultado.txid, resultado.pixCopiaECola, filial);
+      logger.info(`[pix async] Processamento concluído | NF=${nf}`);
     } catch (err) {
-      logger.error(`Erro ao processar PIX | NF=${nf} | ${err.message}`);
+      logger.error(`[pix async] Erro ao processar PIX | NF=${nf} | ${err.message}`);
+      logger.error(`[pix async] Stack: ${err.stack}`);
     }
   })();
 });
 
 app.get('/pix/webhook', async (_req, res) => {
   try {
+    logger.info(`[GET /pix/webhook] Consultando webhook PIX`);
     const token = await autenticarPix();
     const resultado = await consultarWebhook(token);
+    logger.info(`[GET /pix/webhook] OK | resultado=${JSON.stringify(resultado)}`);
     return res.status(200).json(resultado);
   } catch (err) {
-    logger.error(`Erro ao consultar webhook PIX: ${err.message}`);
+    logger.error(`[GET /pix/webhook] Erro: ${err.message}`);
+    logger.error(`[GET /pix/webhook] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });
@@ -164,11 +180,13 @@ app.get('/boleto/cadastrados', async (req, res) => {
   }
 
   try {
+    logger.info(`[GET /boleto/cadastrados] seuNumero=${seuNumero || '-'} | idTituloEmpresa=${idTituloEmpresa || '-'}`);
     const token = await autenticar();
     const resultado = await consultarBoletosCadastrados(token, { seuNumero, idTituloEmpresa });
     return res.status(200).json(resultado);
   } catch (err) {
-    logger.error(`Erro ao consultar boletos cadastrados: ${err.message}`);
+    logger.error(`[GET /boleto/cadastrados] Erro: ${err.message}`);
+    logger.error(`[GET /boleto/cadastrados] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });
@@ -193,6 +211,7 @@ app.get('/boleto/francesinha', async (req, res) => {
   if (!data) return erro(res, 'Parâmetro data é obrigatório (formato YYYY-MM-DD).', 400);
 
   try {
+    logger.info(`[GET /boleto/francesinha] data=${data} | tipoMovimento=${tipoMovimento || '-'} | pagina=${pagina ?? 0}`);
     const token = await autenticar();
     const resultado = await consultarFrancesinha(token, {
       dataLancamento: data,
@@ -201,7 +220,8 @@ app.get('/boleto/francesinha', async (req, res) => {
     });
     return res.status(200).json(resultado);
   } catch (err) {
-    logger.error(`Erro ao consultar francesinha: ${err.message}`);
+    logger.error(`[GET /boleto/francesinha] Erro: ${err.message}`);
+    logger.error(`[GET /boleto/francesinha] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });
@@ -213,11 +233,13 @@ app.get('/boleto/liquidados/periodo', async (req, res) => {
   }
 
   try {
+    logger.info(`[GET /boleto/liquidados/periodo] dataInicio=${dataInicio} | dataFim=${dataFim}`);
     const token = await autenticar();
     const resultado = await consultarLiquidadosPorPeriodo(token, dataInicio, dataFim);
     return res.status(200).json(resultado);
   } catch (err) {
-    logger.error(`Erro ao consultar liquidados por período: ${err.message}`);
+    logger.error(`[GET /boleto/liquidados/periodo] Erro: ${err.message}`);
+    logger.error(`[GET /boleto/liquidados/periodo] Stack: ${err.stack}`);
     return erro(res, err.message, err.message.includes('máximo') || err.message.includes('anterior') ? 400 : 502);
   }
 });
@@ -227,22 +249,27 @@ app.get('/boleto/liquidados', async (req, res) => {
   if (!data) return erro(res, 'Parâmetro data é obrigatório (formato YYYY-MM-DD).', 400);
 
   try {
+    logger.info(`[GET /boleto/liquidados] data=${data}`);
     const token = await autenticar();
     const resultado = await consultarLiquidadosPorDia(token, data);
     return res.status(200).json(resultado);
   } catch (err) {
-    logger.error(`Erro ao consultar boletos liquidados: ${err.message}`);
+    logger.error(`[GET /boleto/liquidados] Erro: ${err.message}`);
+    logger.error(`[GET /boleto/liquidados] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });
 
 app.get('/boleto/webhook', async (_req, res) => {
   try {
+    logger.info(`[GET /boleto/webhook] Consultando webhook boleto`);
     const token = await autenticar();
     const resultado = await consultarWebhookBoleto(token);
+    logger.info(`[GET /boleto/webhook] OK`);
     return res.status(200).json(resultado);
   } catch (err) {
-    logger.error(`Erro ao consultar webhook boleto: ${err.message}`);
+    logger.error(`[GET /boleto/webhook] Erro: ${err.message}`);
+    logger.error(`[GET /boleto/webhook] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });
@@ -252,12 +279,14 @@ app.post('/boleto/webhook', async (req, res) => {
   if (!webhookUrl) return erro(res, 'Campo webhookUrl é obrigatório.', 400);
 
   try {
+    logger.info(`[POST /boleto/webhook] Registrando webhook | url=${webhookUrl}`);
     const token = await autenticar();
     const resultado = await registrarWebhookBoleto(token, webhookUrl);
-    logger.info(`Webhook boleto registrado | url=${webhookUrl}`);
+    logger.info(`[POST /boleto/webhook] Webhook boleto registrado | url=${webhookUrl}`);
     return res.status(201).json({ status: 'registrado', resultado });
   } catch (err) {
-    logger.error(`Erro ao registrar webhook boleto: ${err.message}`);
+    logger.error(`[POST /boleto/webhook] Erro: ${err.message}`);
+    logger.error(`[POST /boleto/webhook] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });
@@ -268,12 +297,14 @@ app.put('/boleto/webhook/:idContrato', async (req, res) => {
   if (!webhookUrl) return erro(res, 'Campo webhookUrl é obrigatório.', 400);
 
   try {
+    logger.info(`[PUT /boleto/webhook/:id] Alterando webhook | idContrato=${idContrato} | url=${webhookUrl}`);
     const token = await autenticar();
     const resultado = await alterarWebhookBoleto(token, idContrato, webhookUrl);
-    logger.info(`Webhook boleto alterado | idContrato=${idContrato} | url=${webhookUrl}`);
+    logger.info(`[PUT /boleto/webhook/:id] Webhook boleto alterado | idContrato=${idContrato}`);
     return res.status(200).json({ status: 'alterado', resultado });
   } catch (err) {
-    logger.error(`Erro ao alterar webhook boleto: ${err.message}`);
+    logger.error(`[PUT /boleto/webhook/:id] Erro: ${err.message}`);
+    logger.error(`[PUT /boleto/webhook/:id] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });
@@ -291,6 +322,7 @@ app.get('/pix/cobrancas', async (req, res) => {
   }
 
   try {
+    logger.info(`[GET /pix/cobrancas] inicio=${inicio} | fim=${fim} | status=${status || 'CONCLUIDA'} | pagina=${paginaAtual ?? 0}`);
     const token     = await autenticarPix();
     const resultado = await listarCobrancas(token, {
       inicio: toBrasiliaUTC(inicio),
@@ -301,7 +333,8 @@ app.get('/pix/cobrancas', async (req, res) => {
     });
     return res.status(200).json(resultado);
   } catch (err) {
-    logger.error(`Erro ao listar cobranças PIX: ${err.message}`);
+    logger.error(`[GET /pix/cobrancas] Erro: ${err.message}`);
+    logger.error(`[GET /pix/cobrancas] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });

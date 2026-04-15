@@ -22,9 +22,29 @@ function criarAgenteMtls() {
   const certPath = SICREDI_PIX_CERT_PATH || path.join(ROOT, '76490572000168.cer');
   const keyPath  = SICREDI_PIX_KEY_PATH  || path.join(ROOT, 'api-pix-cini.key');
 
+  logger.info(`[PIX mTLS] certPath=${certPath} | existe=${fs.existsSync(certPath)}`);
+  logger.info(`[PIX mTLS] keyPath=${keyPath}  | existe=${fs.existsSync(keyPath)}`);
+  logger.info(`[PIX mTLS] passphrase configurada=${!!SICREDI_PIX_KEY_PASSPHRASE}`);
+
+  let certBuf, keyBuf;
+  try {
+    certBuf = fs.readFileSync(certPath);
+    logger.info(`[PIX mTLS] Certificado lido | tamanho=${certBuf.length} bytes`);
+  } catch (err) {
+    logger.error(`[PIX mTLS] Falha ao ler certificado | ${err.message}`);
+    throw err;
+  }
+  try {
+    keyBuf = fs.readFileSync(keyPath);
+    logger.info(`[PIX mTLS] Chave privada lida | tamanho=${keyBuf.length} bytes`);
+  } catch (err) {
+    logger.error(`[PIX mTLS] Falha ao ler chave privada | ${err.message}`);
+    throw err;
+  }
+
   const opts = {
-    cert: fs.readFileSync(certPath),
-    key:  fs.readFileSync(keyPath),
+    cert: certBuf,
+    key:  keyBuf,
     rejectUnauthorized: true,
   };
   if (SICREDI_PIX_KEY_PASSPHRASE) {
@@ -35,8 +55,10 @@ function criarAgenteMtls() {
 
 async function autenticarPix() {
   if (_pixToken && Date.now() < _pixTokenExpiraEm) {
+    logger.info(`[PIX auth] Token em cache válido | expira em ${new Date(_pixTokenExpiraEm).toISOString()}`);
     return _pixToken;
   }
+  logger.info(`[PIX auth] Obtendo novo token | url_base=${SICREDI_PIX_BASE_URL} | client_id=${SICREDI_PIX_CLIENT_ID}`);
 
   const url        = `${SICREDI_PIX_BASE_URL}/oauth/token`;
   const agenteMtls = criarAgenteMtls();
@@ -59,11 +81,13 @@ async function autenticarPix() {
     });
     _pixToken = response.data.access_token;
     _pixTokenExpiraEm = Date.now() + (response.data.expires_in - 60) * 1000;
-    logger.info('Token PIX Sicredi obtido com sucesso.');
+    logger.info(`[PIX auth] Token obtido | expires_in=${response.data.expires_in}s | expira=${new Date(_pixTokenExpiraEm).toISOString()}`);
     return _pixToken;
   } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
     const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
-    logger.error(`Falha ao autenticar PIX Sicredi: ${detalhe}`);
+    logger.error(`[PIX auth] Falha ao autenticar | HTTP ${status} | ${detalhe}`);
+    logger.error(`[PIX auth] Stack: ${err.stack}`);
     throw new Error(`Autenticação PIX Sicredi falhou: ${detalhe}`);
   }
 }
@@ -102,7 +126,8 @@ async function gerarBolecodePix(token, dados) {
   } catch (err) {
     const status  = err.response ? err.response.status : 'N/A';
     const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
-    logger.error(`PIX cob → HTTP ${status} | ${detalhe}`);
+    logger.error(`[PIX cob] Erro | HTTP ${status} | NF=${dados.nf} | ${detalhe}`);
+    logger.error(`[PIX cob] Stack: ${err.stack}`);
     throw new Error(`HTTP ${status} — ${detalhe}`);
   }
 }
@@ -112,7 +137,7 @@ async function registrarWebhook(token, webhookUrl) {
   const url        = `${SICREDI_PIX_BASE_URL}/api/v2/webhook/${encodeURIComponent(chave)}`;
   const agenteMtls = criarAgenteMtls();
 
-  logger.info(`Registrando webhook PIX | chave=${chave} | url=${webhookUrl}`);
+  logger.info(`[registrarWebhook PIX] PUT ${url} | payload: ${JSON.stringify({ webhookUrl })}`);
 
   try {
     const response = await axios.put(url, { webhookUrl }, {
@@ -123,12 +148,13 @@ async function registrarWebhook(token, webhookUrl) {
       httpsAgent: agenteMtls,
       timeout:    15000,
     });
-    logger.info(`Webhook PIX registrado com sucesso. HTTP ${response.status}`);
+    logger.info(`[registrarWebhook PIX] HTTP ${response.status} | Resposta: ${JSON.stringify(response.data)}`);
     return response.data;
   } catch (err) {
     const status  = err.response ? err.response.status : 'N/A';
     const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
-    logger.error(`Falha ao registrar webhook PIX → HTTP ${status} | ${detalhe}`);
+    logger.error(`[registrarWebhook PIX] Erro | HTTP ${status} | ${detalhe}`);
+    logger.error(`[registrarWebhook PIX] Stack: ${err.stack}`);
     throw new Error(`HTTP ${status} — ${detalhe}`);
   }
 }
@@ -137,6 +163,7 @@ async function consultarWebhook(token) {
   const chave      = SICREDI_PIX_CHAVE;
   const url        = `${SICREDI_PIX_BASE_URL}/api/v2/webhook/${encodeURIComponent(chave)}`;
   const agenteMtls = criarAgenteMtls();
+  logger.info(`[consultarWebhook PIX] GET ${url} | chave=${chave}`);
 
   try {
     const response = await axios.get(url, {
@@ -144,10 +171,13 @@ async function consultarWebhook(token) {
       httpsAgent: agenteMtls,
       timeout: 15000,
     });
+    logger.info(`[consultarWebhook PIX] HTTP ${response.status} | Resposta: ${JSON.stringify(response.data)}`);
     return response.data;
   } catch (err) {
     const status  = err.response ? err.response.status : 'N/A';
     const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`[consultarWebhook PIX] Erro | HTTP ${status} | ${detalhe}`);
+    logger.error(`[consultarWebhook PIX] Stack: ${err.stack}`);
     throw new Error(`HTTP ${status} — ${detalhe}`);
   }
 }
@@ -163,7 +193,7 @@ async function listarCobrancas(token, { inicio, fim, status, paginaAtual = 0, it
   };
   if (status) params.status = status;
 
-  logger.info(`Listando cobranças PIX | inicio=${inicio} | fim=${fim} | status=${status || 'todos'}`);
+  logger.info(`[listarCobrancas PIX] GET ${url} | params: ${JSON.stringify(params)}`);
 
   try {
     const response = await axios.get(url, {
@@ -175,7 +205,7 @@ async function listarCobrancas(token, { inicio, fim, status, paginaAtual = 0, it
       httpsAgent: agenteMtls,
       timeout:    30000,
     });
-    logger.info(`Cobranças listadas | total=${response.data?.cobs?.length ?? 0}`);
+    logger.info(`[listarCobrancas PIX] HTTP ${response.status} | total=${response.data?.cobs?.length ?? 0}`);
     return response.data;
   } catch (err) {
     const status  = err.response ? err.response.status : 'N/A';
