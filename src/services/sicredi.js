@@ -2,9 +2,6 @@ const axios  = require('axios');
 const fs     = require('fs');
 const path   = require('path');
 const logger = require('../logger');
-
-// Diretório padrão para salvar PDFs. Pode ser sobrescrito definindo a variável de
-// ambiente `PDF_OUTPUT_DIR`. Por solicitação de testes, padrão é E:\\TOTVS\\Boletos.
 const PDFS_DIR = process.env.PDF_OUTPUT_DIR ? path.resolve(process.env.PDF_OUTPUT_DIR) : path.resolve('E:\\TOTVS\\Boletos');
 const {
   SICREDI_BASE_URL,
@@ -95,6 +92,8 @@ async function gerarBoletoHibrido(token, dados) {
     pagador:                buildPagador(dados),
     validadeAposVencimento: 30,
     tipoJuros:              'PERCENTUAL',
+    tipoJurosPercentual:    'DIARIO',
+    dataInicioJuros:        dados.dataInicioJuros,
     tipoMulta:              'PERCENTUAL',
     multa:                  2.00,
   };
@@ -136,7 +135,6 @@ async function gerarPdf(linhaDigitavel, nf, token, parcela, filial) {
       timeout: 30000,
     });
 
-    // Pasta: PDFs - Boletos Sicredi/   Arquivo: {filial}{nf}{parcela}.pdf ou {filial}{nf}.pdf
     if (!fs.existsSync(PDFS_DIR)) fs.mkdirSync(PDFS_DIR, { recursive: true });
     const prefixo  = filial ? String(filial) : '';
     const nomePdf  = parcela ? `${prefixo}${nf}${parcela.toUpperCase()}` : `${prefixo}${nf}`;

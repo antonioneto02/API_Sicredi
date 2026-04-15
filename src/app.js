@@ -5,7 +5,7 @@ const { PORT, SICREDI_COOPERATIVA } = require('./config');
 const logger   = require('./logger');
 const { autenticar, gerarBoletoHibrido, gerarPdf, gerarPdfParaPasta, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
 const { autenticarPix, gerarBolecodePix, registrarWebhook, consultarWebhook, listarCobrancas } = require('./services/sicredi-pix');
-const { verificarElegibilidadePix, salvarPix, salvarBoleto } = require('./services/database');
+const { verificarElegibilidadePix, salvarPix, salvarBoleto, buscarProximoDiaUtil } = require('./services/database');
 
 const { swaggerUi, swaggerDocument } = require('./swagger');
 
@@ -75,7 +75,8 @@ app.post('/bolecode', async (req, res) => {
   (async () => {
     try {
       const token    = await autenticar();
-      const resultado = await gerarBoletoHibrido(token, dados);
+      const dataInicioJuros = await buscarProximoDiaUtil(dados.vencto);
+      const resultado = await gerarBoletoHibrido(token, { ...dados, dataInicioJuros });
       logger.info(`Boleto gerado | NF=${nf} | Parcela=${parcela || '-'} | nossoNumero=${resultado.nossoNumero} | txid=${resultado.txid}`);
 
       await salvarBoleto(nf, resultado.txid, resultado.qrCode, resultado.nossoNumero, resultado.codigoBarras || resultado.linhaDigitavel, resultado.cooperativa || SICREDI_COOPERATIVA, filial);
@@ -172,7 +173,6 @@ app.get('/boleto/cadastrados', async (req, res) => {
   }
 });
 
-// Rota de teste: gera PDF do boleto a partir da linha digitável e salva em E:\\TOTVS\\Boletos
 app.get('/boleto/teste-gerar', async (req, res) => {
   const linha = String(req.query.linha || '74891160090001460730351462011076214120000001060').trim();
   const outputDir = 'E:\\TOTVS\\Boletos';
