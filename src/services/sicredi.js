@@ -32,7 +32,7 @@ async function autenticar() {
       },
       timeout: 15000,
     });
-    logger.info(`[Sicredi auth] Token obtido | HTTP ${response.status}`);
+    logger.info(`[Sicredi auth] Token obtidos | HTTP ${response.status}`);
     return response.data.access_token;
   } catch (err) {
     const status  = err.response ? err.response.status : 'N/A';
