@@ -103,7 +103,6 @@ async function salvarBoleto(nf, txid, emvPix, nossoNumero, codigoBarras, agedep,
   await p2.request()
     .input('numbco', sql.VarChar(20),  nossoNumero  || '')
     .input('codbar', sql.VarChar(60),  codigoBarras || '')
-    .input('agedep', sql.VarChar(10),  agedep       || '')
     .input('nf',     sql.VarChar(20),  nf)
     .input('filial', sql.VarChar(10),  filial || null)
     .query(`
@@ -111,7 +110,8 @@ async function salvarBoleto(nf, txid, emvPix, nossoNumero, codigoBarras, agedep,
       SET    E1_NUMBCO  = @numbco,
              E1_CODBAR  = @codbar,
              E1_SITUACA = '1',
-             E1_AGEDEP  = @agedep,
+             E1_AGEDEP  = '0730',
+             E1_PORTADO = '748',
              E1_CONTA   = '46201'
       WHERE  E1_NUM      = @nf
         AND  D_E_L_E_T_  = ' '

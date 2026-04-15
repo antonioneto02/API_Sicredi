@@ -23,7 +23,7 @@ async function aplicarEncargosComRetry(nossoNumero, nf, tentativas = 6, interval
     await new Promise(r => setTimeout(r, intervaloMs));
     try {
       const token = await autenticar();
-      await alterarJuros(token, nossoNumero, 1.00);
+      await alterarJuros(token, nossoNumero, 2.00);
       logger.info(`Juros aplicado | NF=${nf} | nossoNumero=${nossoNumero}`);
       return true;
     } catch (err) {
@@ -79,8 +79,6 @@ app.post('/bolecode', async (req, res) => {
       logger.info(`Boleto gerado | NF=${nf} | Parcela=${parcela || '-'} | nossoNumero=${resultado.nossoNumero} | txid=${resultado.txid}`);
 
       await salvarBoleto(nf, resultado.txid, resultado.qrCode, resultado.nossoNumero, resultado.codigoBarras || resultado.linhaDigitavel, resultado.cooperativa || SICREDI_COOPERATIVA, filial);
-
-      // PDF primeiro (boleto com QR code), depois PATCH de juros (doc 7.8)
       await gerarPdfComRetry(resultado.linhaDigitavel, nf, parcela, filial);
       const jurosOk = await aplicarEncargosComRetry(resultado.nossoNumero, nf);
       if (!jurosOk) {

@@ -94,6 +94,7 @@ async function gerarBoletoHibrido(token, dados) {
     valor:                  Number(dados.valor),
     pagador:                buildPagador(dados),
     validadeAposVencimento: 30,
+    tipoJuros:              'PERCENTUAL',
     tipoMulta:              'PERCENTUAL',
     multa:                  2.00,
   };
@@ -188,7 +189,6 @@ async function gerarPdfParaPasta(linhaDigitavel, token, outputDir, nomeArquivo) 
   }
 }
 
-// PATCH /boletos/{nossoNumero}/juros — body aceita apenas valorOuPercentual (conforme doc 7.8)
 async function alterarJuros(token, nossoNumero, valorOuPercentual) {
   const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos/${nossoNumero}/juros`;
   try {
