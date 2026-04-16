@@ -86,19 +86,21 @@ async function chamarSicredi(url, payload, token) {
 
 async function gerarBoletoHibrido(token, dados) {
   const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos`;
-
+  const valorBoleto = Number(dados.valor);
+  const percentual = Number(2.00);
+  const jurosMonetarioRaw = (valorBoleto * (percentual / 100)) / 30;
+  const jurosMonetario = Number((Math.round(jurosMonetarioRaw * 100) / 100).toFixed(2));
   const payload = {
     codigoBeneficiario:     SICREDI_CODIGO_BENEFICIARIO,
     dataVencimento:         dados.vencto,
     especieDocumento:       'DUPLICATA_MERCANTIL_INDICACAO',
     tipoCobranca:           'HIBRIDO',
     seuNumero:              dados.parcela ? `${dados.nf}-${dados.parcela}` : String(dados.nf),
-    valor:                  Number(dados.valor),
+    valor:                  valorBoleto,
     pagador:                buildPagador(dados),
     validadeAposVencimento: 30,
-    tipoJuros:              'PERCENTUAL',
-    juros:                  2.00,
-    tipoJurosPercentual:    'DIARIO',
+    tipoJuros:              'VALOR',
+    juros:                  jurosMonetario,
     tipoMulta:              'PERCENTUAL',
     multa:                  2.00,
   };

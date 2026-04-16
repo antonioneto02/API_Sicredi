@@ -64,13 +64,19 @@ app.post('/bolecode', async (req, res) => {
       logger.info(`[boleto async] Iniciando processamento | NF=${nf} | Parcela=${parcela || '-'}`);
       const token    = await autenticar();
       const resultado = await gerarBoletoHibrido(token, dados);
-      logger.info(`[boleto async] Boleto gerado | NF=${nf} | Parcela=${parcela || '-'} | nossoNumero=${resultado.nossoNumero} | txid=${resultado.txid} | linhaDigitavel=${resultado.linhaDigitavel}`);
+      logger.info(`[boleto async] Resposta geração boleto | NF=${nf} | Parcela=${parcela || '-'} | resultado=${JSON.stringify(resultado)}`);
+
+      // Somente salvar/gerar PDF se o boleto realmente foi criado pelo Sicredi
+      if (!resultado || !resultado.nossoNumero || (!resultado.txid && !resultado.codigoBarras && !resultado.linhaDigitavel)) {
+        logger.warn(`[boleto async] Boleto NÃO gerado corretamente, pulando salvamento e PDF | NF=${nf} | Parcela=${parcela || '-'} | resultado=${JSON.stringify(resultado)}`);
+        return;
+      }
 
       logger.info(`[boleto async] Salvando no banco | NF=${nf} | txid=${resultado.txid} | nossoNumero=${resultado.nossoNumero}`);
       await salvarBoleto(nf, resultado.txid, resultado.qrCode, resultado.nossoNumero, resultado.codigoBarras || resultado.linhaDigitavel, resultado.cooperativa || SICREDI_COOPERATIVA, filial);
       logger.info(`[boleto async] Banco salvo | NF=${nf}`);
 
-      await gerarPdfComRetry(resultado.linhaDigitavel, nf, parcela, filial);
+      await gerarPdfComRetry(resultado.linhaDigitavel || resultado.codigoBarras, nf, parcela, filial);
       logger.info(`[boleto async] Processamento concluído | NF=${nf}`);
     } catch (err) {
       logger.error(`[boleto async] Erro ao processar boleto | NF=${nf} | ${err.message}`);

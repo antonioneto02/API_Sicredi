@@ -116,6 +116,10 @@ async function salvarPix(nf, txid, emvPix, filial) {
 async function salvarBoleto(nf, txid, emvPix, nossoNumero, codigoBarras, agedep, filial) {
   logger.info(`[DB] salvarBoleto | NF=${nf} | filial=${filial || 'null'} | txid=${txid} | nossoNumero=${nossoNumero} | codigoBarras=${codigoBarras} | emvPix.length=${(emvPix || '').length}`);
   const p = await getPool();
+  if (!nossoNumero || ( (!txid || String(txid).trim()==='') && (!codigoBarras || String(codigoBarras).trim()==='') )) {
+    logger.warn(`[DB] salvarBoleto: dados incompletos, pulando atualização | NF=${nf} | txid=${txid} | nossoNumero=${nossoNumero} | codigoBarras=${codigoBarras}`);
+    return;
+  }
   let r1;
   try {
     r1 = await p.request()
