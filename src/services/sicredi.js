@@ -97,8 +97,8 @@ async function gerarBoletoHibrido(token, dados) {
     pagador:                buildPagador(dados),
     validadeAposVencimento: 30,
     tipoJuros:              'PERCENTUAL',
+    juros:                  2.00,
     tipoJurosPercentual:    'DIARIO',
-    dataInicioJuros:        dados.dataInicioJuros,
     tipoMulta:              'PERCENTUAL',
     multa:                  2.00,
   };
@@ -197,27 +197,7 @@ async function gerarPdfParaPasta(linhaDigitavel, token, outputDir, nomeArquivo) 
   }
 }
 
-async function alterarJuros(token, nossoNumero, valorOuPercentual) {
-  const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/boletos/${nossoNumero}/juros`;
-  logger.info(`[alterarJuros] PATCH ${url} | payload: ${JSON.stringify({ valorOuPercentual })}`);
-  try {
-    const response = await axios.patch(url, { valorOuPercentual }, {
-      headers: {
-        ...headersCobranca(token),
-        'codigoBeneficiario': SICREDI_CODIGO_BENEFICIARIO,
-      },
-      timeout: 15000,
-    });
-    logger.info(`[alterarJuros] HTTP ${response.status} | nossoNumero=${nossoNumero} | valor=${valorOuPercentual}%`);
-    logger.info(`[alterarJuros] Resposta: ${JSON.stringify(response.data)}`);
-    return response.data;
-  } catch (err) {
-    const status  = err.response ? err.response.status : 'N/A';
-    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
-    logger.error(`Falha ao aplicar juros via PATCH → HTTP ${status} | nossoNumero=${nossoNumero} | ${detalhe}`);
-    throw new Error(`HTTP ${status} — ${detalhe}`);
-  }
-}
+// Nota: função de PATCH de juros removida — juros devem ser informados no POST de criação do boleto.
 
 async function consultarFrancesinha(token, { dataLancamento, tipoMovimento, pagina = 0 }) {
   const [ano, mes, dia] = dataLancamento.split('-');
@@ -409,4 +389,4 @@ async function alterarWebhookBoleto(token, idContrato, webhookUrl) {
   }
 }
 
-module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, gerarPdfParaPasta, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto };
+module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, gerarPdfParaPasta, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto };

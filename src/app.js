@@ -3,9 +3,9 @@ const express = require('express');
 const http    = require('http');
 const { PORT, SICREDI_COOPERATIVA } = require('./config');
 const logger   = require('./logger');
-const { autenticar, gerarBoletoHibrido, gerarPdf, gerarPdfParaPasta, alterarJuros, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
+const { autenticar, gerarBoletoHibrido, gerarPdf, gerarPdfParaPasta, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
 const { autenticarPix, gerarBolecodePix, registrarWebhook, consultarWebhook, listarCobrancas } = require('./services/sicredi-pix');
-const { verificarElegibilidadePix, salvarPix, salvarBoleto, buscarProximoDiaUtil } = require('./services/database');
+const { verificarElegibilidadePix, salvarPix, salvarBoleto } = require('./services/database');
 
 const { swaggerUi, swaggerDocument } = require('./swagger');
 
@@ -18,21 +18,7 @@ function erro(res, mensagem, status) {
   return res.status(status).json({ erro: mensagem });
 }
 
-async function aplicarEncargosComRetry(nossoNumero, nf, tentativas = 6, intervaloMs = 60000) {
-  for (let i = 1; i <= tentativas; i++) {
-    await new Promise(r => setTimeout(r, intervaloMs));
-    try {
-      const token = await autenticar();
-      await alterarJuros(token, nossoNumero, 2.00);
-      logger.info(`Juros aplicado | NF=${nf} | nossoNumero=${nossoNumero}`);
-      return true;
-    } catch (err) {
-      logger.warn(`Juros PATCH tentativa ${i}/${tentativas} | NF=${nf} | ${err.message}`);
-    }
-  }
-  logger.error(`Juros não aplicado após ${tentativas} tentativas | NF=${nf}`);
-  return false;
-}
+// Observação: lógica de PATCH de juros removida — juros devem ser informados ao criar o boleto (POST).
 
 async function gerarPdfComRetry(linhaDigitavel, nf, parcela, filial, tentativas = 6, intervaloMs = 10000) {
   for (let i = 1; i <= tentativas; i++) {
@@ -77,9 +63,7 @@ app.post('/bolecode', async (req, res) => {
     try {
       logger.info(`[boleto async] Iniciando processamento | NF=${nf} | Parcela=${parcela || '-'}`);
       const token    = await autenticar();
-      const dataInicioJuros = await buscarProximoDiaUtil(dados.vencto);
-      logger.info(`[boleto async] dataInicioJuros=${dataInicioJuros} | NF=${nf}`);
-      const resultado = await gerarBoletoHibrido(token, { ...dados, dataInicioJuros });
+      const resultado = await gerarBoletoHibrido(token, dados);
       logger.info(`[boleto async] Boleto gerado | NF=${nf} | Parcela=${parcela || '-'} | nossoNumero=${resultado.nossoNumero} | txid=${resultado.txid} | linhaDigitavel=${resultado.linhaDigitavel}`);
 
       logger.info(`[boleto async] Salvando no banco | NF=${nf} | txid=${resultado.txid} | nossoNumero=${resultado.nossoNumero}`);
@@ -87,10 +71,6 @@ app.post('/bolecode', async (req, res) => {
       logger.info(`[boleto async] Banco salvo | NF=${nf}`);
 
       await gerarPdfComRetry(resultado.linhaDigitavel, nf, parcela, filial);
-      const jurosOk = await aplicarEncargosComRetry(resultado.nossoNumero, nf);
-      if (!jurosOk) {
-        logger.error(`[boleto async] Juros não aplicado após todas as tentativas | NF=${nf} | nossoNumero=${resultado.nossoNumero}`);
-      }
       logger.info(`[boleto async] Processamento concluído | NF=${nf}`);
     } catch (err) {
       logger.error(`[boleto async] Erro ao processar boleto | NF=${nf} | ${err.message}`);
