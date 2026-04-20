@@ -66,6 +66,12 @@ function buildPagador(dados) {
   };
 }
 
+function formatSeuNumero(raw) {
+  let s = String(raw || '');
+  s = s.replace(/-/g, '');
+  if (s.length > 10) s = s.slice(-10);
+  return s;
+}
 async function chamarSicredi(url, payload, token) {
   logger.info(`[Sicredi POST] url=${url}`);
   try {
@@ -95,7 +101,7 @@ async function gerarBoletoHibrido(token, dados) {
     dataVencimento:         dados.vencto,
     especieDocumento:       'DUPLICATA_MERCANTIL_INDICACAO',
     tipoCobranca:           'HIBRIDO',
-    seuNumero:              dados.parcela ? `${dados.nf}-${dados.parcela}` : String(dados.nf),
+    seuNumero:              formatSeuNumero(dados.parcela ? `${dados.nf}-${dados.parcela}` : String(dados.nf)),
     valor:                  valorBoleto,
     pagador:                buildPagador(dados),
     validadeAposVencimento: 30,
@@ -118,7 +124,7 @@ async function gerarPixSimples(token, dados) {
     dataVencimento:     dados.vencto,
     especieDocumento:   'DUPLICATA_MERCANTIL_INDICACAO',
     tipoCobranca:       'HIBRIDO',
-    seuNumero:          String(dados.nf),
+    seuNumero:          formatSeuNumero(String(dados.nf)),
     valor:              Number(dados.valor),
     pagador:            buildPagador(dados),
   };
@@ -198,9 +204,6 @@ async function gerarPdfParaPasta(linhaDigitavel, token, outputDir, nomeArquivo) 
     throw new Error(`Erro ao gerar PDF para pasta: HTTP ${status} | ${detalhe}`);
   }
 }
-
-// Nota: função de PATCH de juros removida — juros devem ser informados no POST de criação do boleto.
-
 async function consultarFrancesinha(token, { dataLancamento, tipoMovimento, pagina = 0 }) {
   const [ano, mes, dia] = dataLancamento.split('-');
   const dataFormatada = `${dia}/${mes}/${ano}`;
