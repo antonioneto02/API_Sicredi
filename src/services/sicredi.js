@@ -112,9 +112,15 @@ async function gerarBoletoHibrido(token, dados) {
   };
   logger.info(`Gerando boleto HÍBRIDO | NF=${dados.nf} | Parcela=${dados.parcela || '-'} | Valor=${dados.valor}`);
   logger.info(`Payload boleto: ${JSON.stringify(payload)}`);
-  const resultado = await chamarSicredi(url, payload, token);
-  logger.info(`Resposta Sicredi boleto: ${JSON.stringify(resultado)}`);
-  return resultado;
+  try {
+    const resultado = await chamarSicredi(url, payload, token);
+    try { logger.logBoletoSuccessPayload(payload); } catch (e) { logger.warn('Falha ao gravar boleto success payload'); }
+    logger.info(`Resposta Sicredi boleto: ${JSON.stringify(resultado)}`);
+    return resultado;
+  } catch (err) {
+    try { logger.logBoletoErrorPayload(payload); } catch (e) { logger.warn('Falha ao gravar boleto error payload'); }
+    throw err;
+  }
 }
 
 async function gerarPixSimples(token, dados) {
@@ -130,9 +136,15 @@ async function gerarPixSimples(token, dados) {
   };
   logger.info(`Gerando PIX SIMPLES | NF=${dados.nf} | Valor=${dados.valor}`);
   logger.info(`[gerarPixSimples] Payload enviado: ${JSON.stringify(payload)}`);
-  const resultado = await chamarSicredi(url, payload, token);
-  logger.info(`[gerarPixSimples] Resposta Sicredi: ${JSON.stringify(resultado)}`);
-  return resultado;
+  try {
+    const resultado = await chamarSicredi(url, payload, token);
+    try { logger.logPixSuccessPayload(payload); } catch (e) { logger.warn('Falha ao gravar pix success payload'); }
+    logger.info(`[gerarPixSimples] Resposta Sicredi: ${JSON.stringify(resultado)}`);
+    return resultado;
+  } catch (err) {
+    try { logger.logPixErrorPayload(payload); } catch (e) { logger.warn('Falha ao gravar pix error payload'); }
+    throw err;
+  }
 }
 
 async function gerarPdf(linhaDigitavel, nf, token, parcela, filial) {
