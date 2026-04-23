@@ -330,8 +330,7 @@ app.get('/contas/pessoais', async (req, res) => {
   const pageSize = Number(req.query['page-size'] ?? 25);
   try {
     logger.info(`[GET /contas/pessoais] page=${page} | page-size=${pageSize}`);
-    const token = await autenticar();
-    const resultado = await consultarContasPessoais(token, { page, pageSize });
+    const resultado = await consultarContasPessoais({ page, pageSize });
     return res.status(200).json(resultado);
   } catch (err) {
     logger.error(`[GET /contas/pessoais] Erro: ${err.message}`);
@@ -345,8 +344,7 @@ app.get('/contas/juridicas', async (req, res) => {
   const pageSize = Number(req.query['page-size'] ?? 25);
   try {
     logger.info(`[GET /contas/juridicas] page=${page} | page-size=${pageSize}`);
-    const token = await autenticar();
-    const resultado = await consultarContasJuridicas(token, { page, pageSize });
+    const resultado = await consultarContasJuridicas({ page, pageSize });
     return res.status(200).json(resultado);
   } catch (err) {
     logger.error(`[GET /contas/juridicas] Erro: ${err.message}`);

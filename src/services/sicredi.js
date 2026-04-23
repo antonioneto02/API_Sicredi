@@ -11,6 +11,8 @@ const {
   SICREDI_COOPERATIVA,
   SICREDI_POSTO,
   SICREDI_CODIGO_BENEFICIARIO,
+  SICREDI_OB_CLIENT_ID,
+  SICREDI_OB_CLIENT_SECRET,
 } = require('../config');
 
 async function autenticar() {
@@ -377,14 +379,46 @@ async function consultarWebhookBoleto(token) {
   }
 }
 
-async function consultarContasPessoais(token, { page = 1, pageSize = 25 } = {}) {
+async function autenticarOpenBanking() {
+  const url = `${SICREDI_BASE_URL}/auth/openapi/token`;
+  const params = new URLSearchParams({
+    grant_type:    'client_credentials',
+    client_id:     SICREDI_OB_CLIENT_ID,
+    client_secret: SICREDI_OB_CLIENT_SECRET,
+    scope:         'openid',
+  });
+
+  logger.info(`[Sicredi OB auth] Autenticando | url=${url}`);
+  try {
+    const response = await axios.post(url, params.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'x-api-key':    SICREDI_X_API_KEY,
+      },
+      timeout: 15000,
+    });
+    logger.info(`[Sicredi OB auth] Token obtido | HTTP ${response.status}`);
+    return response.data.access_token;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`[Sicredi OB auth] Falha | HTTP ${status} | ${detalhe}`);
+    throw new Error(`Autenticação Open Banking Sicredi falhou: ${detalhe}`);
+  }
+}
+
+async function consultarContasPessoais({ page = 1, pageSize = 25 } = {}) {
+  const token = await autenticarOpenBanking();
   const url = `${SICREDI_BASE_URL}/open-banking/products-services/v1/personal-accounts`;
   const params = { page, 'page-size': pageSize };
   logger.info(`[consultarContasPessoais] GET ${url} | params: ${JSON.stringify(params)}`);
   try {
     const response = await axios.get(url, {
       params,
-      headers: headersCobranca(token),
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'x-api-key':     SICREDI_X_API_KEY,
+      },
       timeout: 30000,
     });
     logger.info(`[consultarContasPessoais] HTTP ${response.status}`);
@@ -397,14 +431,18 @@ async function consultarContasPessoais(token, { page = 1, pageSize = 25 } = {}) 
   }
 }
 
-async function consultarContasJuridicas(token, { page = 1, pageSize = 25 } = {}) {
+async function consultarContasJuridicas({ page = 1, pageSize = 25 } = {}) {
+  const token = await autenticarOpenBanking();
   const url = `${SICREDI_BASE_URL}/open-banking/products-services/v1/business-accounts`;
   const params = { page, 'page-size': pageSize };
   logger.info(`[consultarContasJuridicas] GET ${url} | params: ${JSON.stringify(params)}`);
   try {
     const response = await axios.get(url, {
       params,
-      headers: headersCobranca(token),
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'x-api-key':     SICREDI_X_API_KEY,
+      },
       timeout: 30000,
     });
     logger.info(`[consultarContasJuridicas] HTTP ${response.status}`);
