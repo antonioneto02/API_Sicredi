@@ -3,7 +3,7 @@ const express = require('express');
 const http    = require('http');
 const { PORT, SICREDI_COOPERATIVA } = require('./config');
 const logger   = require('./logger');
-const { autenticar, gerarBoletoHibrido, gerarPdf, gerarPdfParaPasta, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto } = require('./services/sicredi');
+const { autenticar, gerarBoletoHibrido, gerarPdf, gerarPdfParaPasta, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto, consultarContasPessoais, consultarContasJuridicas } = require('./services/sicredi');
 const { autenticarPix, gerarBolecodePix, registrarWebhook, consultarWebhook, listarCobrancas } = require('./services/sicredi-pix');
 const { verificarElegibilidadePix, salvarPix, salvarBoleto } = require('./services/database');
 
@@ -321,6 +321,36 @@ app.get('/pix/cobrancas', async (req, res) => {
   } catch (err) {
     logger.error(`[GET /pix/cobrancas] Erro: ${err.message}`);
     logger.error(`[GET /pix/cobrancas] Stack: ${err.stack}`);
+    return erro(res, err.message, 502);
+  }
+});
+
+app.get('/contas/pessoais', async (req, res) => {
+  const page     = Number(req.query.page     ?? 1);
+  const pageSize = Number(req.query['page-size'] ?? 25);
+  try {
+    logger.info(`[GET /contas/pessoais] page=${page} | page-size=${pageSize}`);
+    const token = await autenticar();
+    const resultado = await consultarContasPessoais(token, { page, pageSize });
+    return res.status(200).json(resultado);
+  } catch (err) {
+    logger.error(`[GET /contas/pessoais] Erro: ${err.message}`);
+    logger.error(`[GET /contas/pessoais] Stack: ${err.stack}`);
+    return erro(res, err.message, 502);
+  }
+});
+
+app.get('/contas/juridicas', async (req, res) => {
+  const page     = Number(req.query.page     ?? 1);
+  const pageSize = Number(req.query['page-size'] ?? 25);
+  try {
+    logger.info(`[GET /contas/juridicas] page=${page} | page-size=${pageSize}`);
+    const token = await autenticar();
+    const resultado = await consultarContasJuridicas(token, { page, pageSize });
+    return res.status(200).json(resultado);
+  } catch (err) {
+    logger.error(`[GET /contas/juridicas] Erro: ${err.message}`);
+    logger.error(`[GET /contas/juridicas] Stack: ${err.stack}`);
     return erro(res, err.message, 502);
   }
 });

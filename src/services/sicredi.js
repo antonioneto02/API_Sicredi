@@ -377,6 +377,46 @@ async function consultarWebhookBoleto(token) {
   }
 }
 
+async function consultarContasPessoais(token, { page = 1, pageSize = 25 } = {}) {
+  const url = `${SICREDI_BASE_URL}/open-banking/products-services/v1/personal-accounts`;
+  const params = { page, 'page-size': pageSize };
+  logger.info(`[consultarContasPessoais] GET ${url} | params: ${JSON.stringify(params)}`);
+  try {
+    const response = await axios.get(url, {
+      params,
+      headers: headersCobranca(token),
+      timeout: 30000,
+    });
+    logger.info(`[consultarContasPessoais] HTTP ${response.status}`);
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`[consultarContasPessoais] Erro | HTTP ${status} | ${detalhe}`);
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
+async function consultarContasJuridicas(token, { page = 1, pageSize = 25 } = {}) {
+  const url = `${SICREDI_BASE_URL}/open-banking/products-services/v1/business-accounts`;
+  const params = { page, 'page-size': pageSize };
+  logger.info(`[consultarContasJuridicas] GET ${url} | params: ${JSON.stringify(params)}`);
+  try {
+    const response = await axios.get(url, {
+      params,
+      headers: headersCobranca(token),
+      timeout: 30000,
+    });
+    logger.info(`[consultarContasJuridicas] HTTP ${response.status}`);
+    return response.data;
+  } catch (err) {
+    const status  = err.response ? err.response.status : 'N/A';
+    const detalhe = err.response ? JSON.stringify(err.response.data) : err.message;
+    logger.error(`[consultarContasJuridicas] Erro | HTTP ${status} | ${detalhe}`);
+    throw new Error(`HTTP ${status} — ${detalhe}`);
+  }
+}
+
 async function alterarWebhookBoleto(token, idContrato, webhookUrl) {
   const url = `${SICREDI_BASE_URL}/cobranca/boleto/v1/webhook/contrato/${idContrato}`;
   const alterarPayload = {
@@ -406,4 +446,4 @@ async function alterarWebhookBoleto(token, idContrato, webhookUrl) {
   }
 }
 
-module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, gerarPdfParaPasta, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto };
+module.exports = { autenticar, gerarBoletoHibrido, gerarPixSimples, gerarPdf, gerarPdfParaPasta, consultarFrancesinha, consultarLiquidadosPorPeriodo, consultarBoletosCadastrados, consultarLiquidadosPorDia, registrarWebhookBoleto, consultarWebhookBoleto, alterarWebhookBoleto, consultarContasPessoais, consultarContasJuridicas };
